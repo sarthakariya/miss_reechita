@@ -1,163 +1,116 @@
 /* --- CSS Variables (Root) --- */
 :root {
-    --primary-cyan-soft: #88EEFF; /* Softer Cyan */
-    --secondary-magenta-soft: #FF88EE; /* Softer Magenta */
-    --dark-bg: #1a1a1a;
+    --primary-love: #FF69B4; /* Hot Pink */
+    --secondary-accent: #88EEFF; /* Soft Cyan */
+    --dark-text: #333;
     --light-text: #f0f0f0;
-    --question-color: #FF69B4; /* Hot Pink for main question/greeting */
-    --yes-button-color: #4CAF50; /* Green for Yes button */
-    --no-button-color: #F44336; /* Red for No button */
-    --response-color: #FFFFFF; /* White for final response text */
-    --response-outline-color: #FF8888; /* Light Red for outline */
-    --snowflake-color: rgba(255, 255, 255, 0.7);
-    --tease-text-color: #FFD700; /* Gold for teasy text */
-    --heart-pink: #FFC0CB; /* Light pink for hearts */
-    --general-bg-color: #ffebee; /* Lightest pink for general page backgrounds */
-    --section-bg-color: #fff8f8; /* Slightly darker pink for sections */
-    --text-color-dark: #333;
-    --heading-color-dark: #d81b60;
-    --link-color: #e91e63;
+    --section-bg-light: #fff8f8; /* Lightest pink for content sections */
+    --page-bg-gradient-start: #ffebee; /* Very light pink */
+    --page-bg-gradient-end: #ffdee9; /* Slightly deeper pink */
+    --button-primary: #FF1493; /* Deep Pink */
+    --button-hover: #E00078; /* Darker Pink */
+    --heart-color: #FFC0CB; /* Light Pink */
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.2);
+    --shadow-strong: rgba(0, 0, 0, 0.4);
+    --tease-gold: #FFD700; /* Gold */
+    --final-response-text: #FFFFFF; /* White */
+    --final-response-outline: #FF8888; /* Light Red */
 }
 
 /* --- General Body Styling (Applies to all pages) --- */
 body {
-    display: flex;
-    flex-direction: column; /* Changed to column for multiple pages */
-    justify-content: flex-start; /* Align content to start for scrolling pages */
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(45deg, var(--primary-cyan-soft), var(--secondary-magenta-soft));
-    font-family: 'Cormorant Garamond', serif; /* Elegant default font */
-    color: var(--light-text); /* Default text color for initial landing page */
-    text-align: center;
-    overflow-x: hidden; /* Prevent horizontal scroll */
     margin: 0;
-    background-size: 200% 200%;
-    animation: softGradientShift 15s ease-in-out infinite alternate, pulseBackground 10s infinite alternate;
+    padding: 0;
+    font-family: 'Cormorant Garamond', serif; /* Elegant default font */
+    color: var(--dark-text);
+    text-align: center;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll */
     position: relative;
-    touch-action: manipulation;
+    background: linear-gradient(135deg, var(--page-bg-gradient-start), var(--page-bg-gradient-end));
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease-in-out infinite alternate;
+    touch-action: manipulation; /* Improves responsiveness on touch devices */
 }
 
-/* Specific styling for page 2 and 3 body to change default text colors */
-body.secondary-page {
-    background: var(--general-bg-color); /* Lighter background for content pages */
-    color: var(--text-color-dark); /* Darker text for readability on light background */
-    display: block; /* Allow normal scrolling layout */
-    min-height: 100vh; /* Ensure page takes full height */
-}
-
-/* Snowfall effect - Primarily for index.html but can be general */
-.snowflake {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background-color: var(--snowflake-color);
-    border-radius: 50%;
-    opacity: 0;
-    animation: fall 12s linear infinite, drift 4s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-}
-
-@keyframes fall {
-    to { transform: translateY(110vh); }
-}
-
-@keyframes drift {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(50px); }
-}
-
-/* --- Main Content Section (index.html specific) --- */
-#main-content {
+/* Specific styling for page 1 (index.html) body background */
+body#intro-page-bg {
+    background: linear-gradient(45deg, var(--secondary-accent), var(--primary-love));
+    background-size: 200% 200%;
+    animation: gradientShift 20s ease-in-out infinite alternate;
+    color: var(--light-text);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.4); /* Transparent dark background */
-    padding: 50px 70px;
-    border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-    position: relative;
-    z-index: 1;
-    opacity: 0;
-    transform: scale(0.8);
-    animation: initialFadeScaleIn 1.5s ease-out 0.5s forwards;
-    min-width: 300px;
-    min-height: 250px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    margin-top: 50px; /* Adjust margin for overall page flow */
-    margin-bottom: 50px;
+    flex-direction: column;
 }
 
-/* --- Headings and Text Styles --- */
-h1 {
+/* --- Global Headings & Paragraphs --- */
+h1, h2 {
     font-family: 'Great Vibes', cursive;
-    font-size: 4em;
-    margin-bottom: 5px;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
-    color: var(--question-color);
-    animation: gentlePulse 2s ease-in-out infinite alternate;
+    text-shadow: 2px 2px 6px var(--shadow-medium);
 }
 
-h2 { /* General H2 for page2/3 */
-    font-family: 'Dancing Script', cursive;
-    color: var(--heading-color-dark);
-    border-bottom: 3px solid var(--link-color);
+h1 {
+    font-size: 4.5em;
+    margin-bottom: 20px;
+    color: var(--primary-love);
+}
+
+h2 {
+    font-size: 3.5em;
+    margin-bottom: 25px;
+    color: var(--button-primary);
+    border-bottom: 2px solid var(--primary-love);
     padding-bottom: 15px;
-    margin-bottom: 30px;
-    font-size: 2.8em;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-p { /* General paragraph style for page2/3 */
-    font-size: 1.15em;
-    line-height: 1.8;
+p {
+    font-size: 1.2em;
+    line-height: 1.7;
     margin-bottom: 18px;
-    color: var(--text-color-dark);
 }
 
-strong { /* General strong tag style for page2/3 */
-    color: var(--heading-color-dark);
+strong {
+    color: var(--button-primary);
     font-weight: bold;
 }
 
-a { /* General link style for page2/3 */
-    color: var(--link-color);
+a {
+    color: var(--primary-love);
     text-decoration: none;
-    border-bottom: 1px dashed var(--link-color);
+    border-bottom: 1px dashed var(--primary-love);
     transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 a:hover {
-    color: var(--heading-color-dark);
-    border-bottom: 1px solid var(--heading-color-dark);
+    color: var(--button-hover);
+    border-bottom: 1px solid var(--button-hover);
 }
 
-
-#introText {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.8em;
-    margin-bottom: 40px;
-    color: var(--light-text);
-    animation: fadeIn 1.5s ease-out;
-    max-width: 600px;
-    line-height: 1.4;
+/* --- Container for Page 2 & 3 content --- */
+.container {
+    padding: 40px;
+    max-width: 1100px;
+    margin: 40px auto;
+    background-color: var(--section-bg-light);
+    box-shadow: 0 0 30px var(--shadow-light);
+    border-radius: 20px;
+    text-align: left;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlideUpContainer 1s ease-out forwards 0.5s;
+    position: relative; /* For z-indexing internal elements */
+    z-index: 10;
 }
 
-/* --- Buttons (index.html specific) --- */
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    z-index: 2;
-    position: relative;
-    flex-wrap: wrap;
-}
-
+/* --- Buttons (General Style) --- */
 button {
     padding: 18px 35px;
     font-size: 1.8em;
@@ -165,312 +118,164 @@ button {
     border-radius: 35px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 15px var(--shadow-medium);
     font-family: 'Pacifico', cursive;
     color: var(--light-text);
+    background-color: var(--button-primary);
+    outline: none;
     will-change: transform, box-shadow;
 }
 
 button:hover {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-#yesBtn { background-color: var(--yes-button-color); }
-#yesBtn:hover { background-color: #4CAF50; }
-
-#noBtn {
-    background-color: var(--no-button-color);
-    font-size: 1.2em;
-    padding: 12px 25px;
-    transform: scale(0.9);
-    position: absolute;
-    transition: transform 0.1s ease-out, left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-    will-change: transform, left, top;
-}
-#noBtn:hover {
-    background-color: #F44336;
-    cursor: not-allowed;
-}
-
-/* --- Tease and Response Text (index.html specific) --- */
-#teaseResponse {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.5em;
-    color: var(--tease-text-color);
-    margin-top: 20px;
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
-    min-height: 1.5em;
-    will-change: opacity;
-}
-
-#response {
-    margin-top: 50px;
-    font-size: 2.8em;
-    color: var(--response-color);
-    text-shadow: 2px 2px var(--response-outline-color),
-                -2px -2px var(--response-outline-color),
-                2px -2px var(--response-outline-color),
-                -2px 2px var(--response-outline-color),
-                0 0 10px rgba(0, 0, 0, 0.5);
-    animation: fadeInSlideUp 2s ease-out forwards, textJiggle 0.5s ease-in-out infinite alternate, scaleResponse 4s infinite alternate;
-    opacity: 0;
-    transform: translateY(40px) scale(0.9);
-    font-family: 'Dancing Script', cursive;
-    font-weight: 700;
-    will-change: opacity, transform, text-shadow;
-    max-width: 800px;
-    line-height: 1.3;
-}
-
-/* --- Next Page Link (index.html specific) --- */
-.next-page-link {
-    display: none;
-    margin-top: 30px;
-    padding: 15px 30px;
-    background-color: var(--yes-button-color);
-    color: var(--light-text);
-    border-radius: 30px;
-    text-decoration: none;
-    font-family: 'Pacifico', cursive;
-    font-size: 1.5em;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    opacity: 0;
-    animation: fadeIn 1s ease-out forwards 2.5s;
-}
-
-.next-page-link:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    background-color: #4CAF50;
+    box-shadow: 0 10px 25px var(--shadow-strong);
+    background-color: var(--button-hover);
 }
 
-/* --- Floating Hearts (index.html specific) --- */
-.floating-heart {
-    position: absolute;
-    background-color: var(--heart-pink);
-    transform: rotate(-45deg);
-    animation: heartFloatAndSpin 6s ease-out forwards, slightScale 2s infinite alternate;
+/* --- Page 1 Specifics (`index.html`) --- */
+#intro-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+}
+
+#intro-container h1 {
+    color: var(--light-text);
+    font-size: 4.8em;
+    text-shadow: 3px 3px 8px var(--shadow-strong);
     opacity: 0;
-    pointer-events: none;
-    z-index: 0;
-    will-change: transform, opacity;
+    transform: translateY(20px);
+    animation: fadeInSlideUp 1.2s ease-out forwards;
+    margin-bottom: 40px;
 }
 
-.floating-heart::before,
-.floating-heart::after {
-    content: '';
+#intro-container p {
+    color: var(--light-text);
+    font-family: 'Lora', serif; /* A more narrative font */
+    font-size: 1.6em;
+    max-width: 800px;
+    margin-bottom: 25px;
+    opacity: 0;
+    transform: translateY(20px);
+    line-height: 1.6;
+}
+
+#intro-container .fade-in-paragraph.delay-1 { animation: fadeInSlideUp 1.2s ease-out forwards 0.8s; }
+#intro-container .fade-in-paragraph.delay-2 { animation: fadeInSlideUp 1.2s ease-out forwards 1.6s; }
+#intro-container .fade-in-paragraph.delay-3 { animation: fadeInSlideUp 1.2s ease-out forwards 2.4s; }
+
+#startJourneyBtn {
+    opacity: 0;
+    pointer-events: none; /* Initially not clickable */
+    animation: fadeIn 1s ease-out forwards 3s;
+    margin-top: 30px;
+    font-size: 2em;
+    padding: 20px 40px;
+}
+
+/* Background waves for index.html */
+.background-wave {
     position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* Adjust height for effect */
+    background: rgba(255, 255, 255, 0.1);
+    transform-origin: bottom center;
+    animation: waveMovement 15s linear infinite alternate;
+    z-index: 0;
+    opacity: 0.8;
+}
+
+.background-wave.wave-1 {
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    background: rgba(255, 255, 255, 0.05);
+    animation-delay: 0s;
+    height: 200px;
+}
+
+.background-wave.wave-2 {
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    background: rgba(255, 255, 255, 0.03);
+    animation-delay: -5s;
+    height: 250px;
+}
+
+/* Background Stars */
+.background-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--heart-pink);
-    border-radius: 50%;
-}
-
-.floating-heart::before { top: -50%; left: 0; }
-.floating-heart::after { top: 0; left: 50%; }
-
-/* --- Background Particles (subtle dots, generally for index.html) --- */
-.particle {
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    animation: particleFadeFloat 8s infinite ease-out forwards, slightRotate 10s infinite linear;
-    pointer-events: none;
+    background: transparent;
+    overflow: hidden;
     z-index: 0;
-    will-change: transform, opacity;
 }
 
-/* --- Background Graphics (hearts and sparkles, generally for index.html) --- */
-.bg-graphic {
+.background-stars::before {
+    content: '';
     position: absolute;
-    opacity: 0.2;
-    pointer-events: none;
-    z-index: 0;
-    animation-delay: var(--animation-delay, 0s);
-    will-change: transform, opacity;
-}
-
-.bg-graphic.heart-outline {
-    width: 100px;
-    height: 100px;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>') no-repeat center center / contain;
-    animation: rotateAndFloat 20s infinite linear;
-}
-
-.bg-graphic.sparkle-icon {
-    width: 70px;
-    height: 70px;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>') no-repeat center center / contain;
-    animation: fadeInOutBgGraphic 15s infinite ease-in-out;
-}
-
-/* Positioning for background graphics */
-.graphic-1 { top: 15%; left: 15%; --animation-delay: 1s; }
-.graphic-2 { bottom: 20%; right: 15%; --animation-delay: 3s; }
-.graphic-3 { top: 30%; right: 25%; --animation-delay: 0s; }
-.graphic-4 { bottom: 10%; left: 30%; --animation-delay: 2s; }
-.graphic-5 { top: 60%; left: 10%; transform: translateY(-50%); --animation-delay: 4s; }
-
-/* --- Keyframe Animations --- */
-@keyframes initialFadeScaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-@keyframes softGradientShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-@keyframes pulseBackground { 0% { background-color: rgba(0, 0, 0, 0.4); } 50% { background-color: rgba(0, 0, 0, 0.5); } 100% { background-color: rgba(0, 0, 0, 0.4); } }
-@keyframes gentlePulse { 0% { transform: scale(1); text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4); } 50% { transform: scale(1.02); text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6); } 100% { transform: scale(1); text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeInSlideUp { from { opacity: 0; transform: translateY(40px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes textJiggle { 0%, 100% { transform: translateX(0) translateY(0) scale(1); } 25% { transform: translateX(-1px) translateY(-0.5px) scale(1.01); } 50% { transform: translateX(1px) translateY(0.5px) scale(0.99); } 75% { transform: translateX(-0.5px) translateY(1px) scale(1.01); } }
-@keyframes scaleResponse { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-5px) scale(1.02); } }
-@keyframes heartFloatAndSpin { 0% { transform: translateY(0) rotate(-45deg) scale(1); opacity: 0.8; } 100% { transform: translateY(-700px) rotate(700deg) scale(1.3); opacity: 0; } }
-@keyframes slightScale { from { transform: rotate(-45deg) scale(1); } to { transform: rotate(-45deg) scale(1.05); } }
-@keyframes particleFadeFloat { 0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.5; } 100% { transform: translateY(-100vh) translateX(50px) scale(1.2); opacity: 0; } }
-@keyframes slightRotate { to { transform: rotate(360deg); } }
-@keyframes rotateAndFloat { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-@keyframes fadeInOutBgGraphic { 0%, 100% { opacity: 0; } 50% { opacity: 0.2; } }
-@keyframes fadeOutDisappear { to { opacity: 0; visibility: hidden; } }
-@keyframes bounceOut { 0% { transform: scale(1); opacity: 1; } 20% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0) rotate(180deg); opacity: 0; visibility: hidden; } }
-@keyframes shake { 0%, 100% { transform: translateX(0) scale(0.9); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-10px) scale(0.9); } 20%, 40%, 60%, 80% { transform: translateX(10px) scale(0.9); } }
-
-/* --- Responsive Design for Smaller Screens --- */
-@media (max-width: 768px) {
-    #main-content {
-        padding: 30px 20px;
-        width: 90%;
-        box-sizing: border-box;
-        min-width: unset;
-    }
-    h1 { font-size: 2.5em; }
-    h2 { font-size: 2.2em; }
-    p { font-size: 1em; }
-    #introText { font-size: 1.2em; margin-bottom: 20px; }
-    .buttons { flex-direction: column; gap: 20px; }
-    button { font-size: 1.4em; padding: 15px 30px; width: 80%; max-width: 250px; margin: 0 auto; }
-    #noBtn {
-        font-size: 1em; padding: 10px 20px; position: relative; transform: translate(0, 0) scale(0.9); margin-top: 10px; left: unset; top: unset;
-    }
-    #noBtn:hover, #noBtn:active { transform: scale(0.9); background-color: var(--no-button-color); }
-    #teaseResponse { font-size: 1.2em; }
-    #response { font-size: 1.8em; margin-top: 30px; }
-    .bg-graphic { display: none; } /* Hide background graphics for mobile to simplify */
-    .next-page-link { font-size: 1.2em; padding: 12px 25px; }
-
-    /* Page2/3 specific adjustments */
-    .container {
-        padding: 20px;
-        margin: 20px auto;
-        box-sizing: border-box;
-    }
-    .grid-container {
-        grid-template-columns: 1fr; /* Stack on mobile */
-    }
-}
-
-@media (max-width: 480px) {
-    h1 { font-size: 2.2em; }
-    h2 { font-size: 1.8em; }
-    p { font-size: 0.95em; }
-    #introText { font-size: 0.95em; }
-    nav ul li a { font-size: 1em; } /* If you add a nav bar */
-    #scrollToTopBtn { font-size: 20px; padding: 12px 15px; bottom: 15px; right: 15px; }
-}
-
-/* --- General Content Page Layout (page2.html, page3.html) --- */
-.container {
-    padding: 40px;
-    max-width: 1100px;
-    margin: 40px auto;
-    background-color: var(--section-bg-color); /* Lightest pink for content sections */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    text-align: left; /* Default text alignment for content */
-    color: var(--text-color-dark); /* Ensure text is readable */
-    width: 90%; /* Responsive width */
-    box-sizing: border-box;
-}
-
-.section-heading { /* For sections within page2/3 */
-    font-family: 'Dancing Script', cursive;
-    color: var(--heading-color-dark);
-    border-bottom: 3px solid var(--link-color);
-    padding-bottom: 15px;
-    margin-bottom: 30px;
-    font-size: 2.8em;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.grid-item {
-    background-color: #fff;
-    border: 1px solid #ffebf0;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.grid-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-}
-
-.grid-item img {
-    max-width: 100%;
-    height: 200px; /* Consistent height for images */
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.grid-item h3 {
-    font-family: 'Pacifico', cursive;
-    color: var(--link-color);
-    margin-top: 0;
-    font-size: 1.5em;
-}
-
-/* Back to Home Link Style */
-.back-home-link {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 12px 25px;
-    background-color: var(--link-color);
-    color: white;
-    border-radius: 25px;
-    text-decoration: none;
-    font-family: 'Pacifico', cursive;
-    font-size: 1.2em;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.back-home-link:hover {
-    background-color: var(--heading-color-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Optional: Navbar for secondary pages */
-.secondary-nav {
-    background-color: var(--link-color);
-    padding: 1rem 0;
+    top: 0;
+    left: 0;
     width: 100%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+                radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: starTwinkle 20s linear infinite;
+}
+
+/* Background Particles (similar to snowflakes, but more dense/subtle) */
+.background-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+.background-particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: particleFloat 30s linear infinite;
+}
+
+
+/* --- Page 2 & 3 Specifics (`page2.html`, `page3.html`) --- */
+/* Override body background for these pages */
+body.content-page {
+    background: var(--page-bg-gradient-start);
+    background-size: 100% 100%;
+    animation: none; /* No gradient shift for content pages */
+    color: var(--dark-text);
+    display: block; /* Allow normal document flow */
+}
+
+.secondary-nav {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    padding: 0.8rem 0;
+    width: 100%;
+    box-shadow: 0 2px 8px var(--shadow-light);
     position: sticky;
     top: 0;
     z-index: 1000;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .secondary-nav ul {
@@ -488,14 +293,408 @@ button:hover {
 }
 
 .secondary-nav ul li a {
-    color: #fff;
+    color: var(--button-primary);
     text-decoration: none;
     font-weight: bold;
     font-size: 1.1em;
     transition: color 0.3s ease, transform 0.2s ease;
+    font-family: 'Lora', serif;
 }
 
 .secondary-nav ul li a:hover {
-    color: var(--primary-cyan-soft);
+    color: var(--button-hover);
     transform: translateY(-2px);
+}
+
+/* Grid for Memories Section */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.grid-item {
+    background-color: #fff;
+    border: 1px solid var(--heart-color);
+    border-radius: 15px;
+    box-shadow: 0 6px 15px var(--shadow-light);
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden; /* Hide overflow for image animations */
+    position: relative;
+    will-change: transform, box-shadow;
+}
+
+.grid-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px var(--shadow-medium);
+}
+
+.grid-item img {
+    max-width: 100%;
+    height: 200px; /* Consistent height for images */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.5s ease-out; /* Image hover effect */
+}
+
+.grid-item:hover img {
+    transform: scale(1.05);
+}
+
+.grid-item h3 {
+    font-family: 'Pacifico', cursive;
+    color: var(--primary-love);
+    margin-top: 0;
+    font-size: 1.8em;
+}
+
+/* Animated GIFs within content */
+.content-gif {
+    max-width: 80%; /* Adjust size as needed */
+    height: auto;
+    border-radius: 15px;
+    margin: 30px auto;
+    display: block;
+    box-shadow: 0 8px 20px var(--shadow-medium);
+    opacity: 0;
+    transform: scale(0.8);
+    animation: fadeInScale 1s ease-out forwards;
+    animation-delay: var(--gif-delay, 0s);
+    will-change: transform, opacity;
+}
+
+/* --- Page 3 Specifics (`page3.html`) --- */
+#the-question-section {
+    position: relative; /* For absolute positioning of buttons */
+    padding: 40px 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    box-shadow: 0 10px 30px var(--shadow-medium);
+    margin: 50px auto;
+    max-width: 900px;
+    overflow: hidden; /* For confetti/heart overflow */
+    z-index: 1; /* Ensure content is above background effects */
+}
+
+#the-question-section h2 {
+    color: var(--primary-love);
+    font-size: 4em;
+    text-shadow: 2px 2px 8px var(--shadow-medium);
+    border-bottom: none; /* Remove border for main question */
+    margin-bottom: 0;
+}
+
+#page3-main-interaction {
+    position: relative; /* For buttons inside */
+    margin-top: 30px;
+}
+
+#page3-main-interaction p {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4.5em; /* Larger for the main question */
+    color: var(--button-primary);
+    line-height: 1.2;
+    text-shadow: 3px 3px 8px var(--shadow-strong);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 50px; /* Increased gap */
+    margin-top: 60px; /* Increased top margin */
+    position: relative; /* For noBtn absolute positioning */
+    z-index: 5; /* Ensure buttons are above other content */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+#yesBtn3, #noBtn3 {
+    font-size: 2.2em; /* Larger buttons */
+    padding: 20px 45px;
+    min-width: 220px; /* Ensure buttons are decent size */
+}
+
+#noBtn3 {
+    background-color: var(--secondary-accent); /* Unique color for no */
+    font-size: 1.5em; /* Slightly smaller text for no */
+    padding: 15px 30px;
+    position: absolute;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    left: 50%; /* Initial center, will be offset by JS */
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    cursor: grab; /* Indicate it's draggable/movable */
+}
+#noBtn3:hover {
+    background-color: #66DDFF; /* Lighter hover for no */
+    cursor: grabbing;
+}
+#noBtn3.clicked { /* Class for shake animation */
+    animation: shake 0.3s ease;
+}
+
+#teaseResponse3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em; /* Larger for impact */
+    color: var(--tease-gold);
+    margin-top: 30px;
+    min-height: 2.5em; /* Ensure space even when hidden */
+    text-shadow: 1px 1px 3px var(--shadow-light);
+    position: relative; /* To be above other content */
+    z-index: 6;
+}
+
+#finalResponse3 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    font-size: 3.5em;
+    color: var(--final-response-text);
+    text-shadow: 3px 3px var(--final-response-outline),
+                 -3px -3px var(--final-response-outline),
+                 3px -3px var(--final-response-outline),
+                 -3px 3px var(--final-response-outline),
+                 0 0 15px var(--shadow-strong);
+    opacity: 0;
+    transform: translateY(60px) scale(0.8);
+    animation: fadeInSlideUp 2s ease-out forwards, pulseText 3s ease-in-out infinite alternate;
+    line-height: 1.3;
+    margin: 60px auto;
+    max-width: 90%;
+    z-index: 7; /* Ensure it's on top */
+    position: relative;
+}
+
+/* Confetti animation */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary-love);
+    border-radius: 50%;
+    opacity: 0;
+    animation: confettiFall 3s ease-out forwards;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Floating heart for celebration */
+.celebration-heart {
+    position: absolute;
+    background-color: var(--heart-color);
+    transform: rotate(-45deg);
+    animation: heartFloatAndSpin 6s ease-out forwards, slightScale 2s infinite alternate;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 101; /* Above confetti */
+    will-change: transform, opacity;
+}
+.celebration-heart::before,
+.celebration-heart::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--heart-color);
+    border-radius: 50%;
+}
+.celebration-heart::before { top: -50%; left: 0; }
+.celebration-heart::after { top: 0; left: 50%; }
+
+
+/* Back to Home/Journey Link Style */
+.back-home-link {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: var(--primary-love);
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-medium);
+    z-index: 10; /* Ensure links are clickable */
+    position: relative;
+}
+
+.back-home-link:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px var(--shadow-strong);
+}
+
+/* --- Keyframe Animations (Extensive) --- */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+@keyframes fadeInSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInSlideRight {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-grow {
+    0% { transform: scale(1); box-shadow: 0 6px 15px var(--shadow-medium); }
+    50% { transform: scale(1.03); box-shadow: 0 10px 20px var(--shadow-strong); }
+    100% { transform: scale(1); box-shadow: 0 6px 15px var(--shadow-medium); }
+}
+
+@keyframes waveMovement {
+    0% { transform: scaleY(1) translateX(0); }
+    50% { transform: scaleY(1.05) translateX(10px); }
+    100% { transform: scaleY(1) translateX(0); }
+}
+
+@keyframes starTwinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.3; }
+}
+
+@keyframes particleFloat {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+@keyframes fadeInSlideUpContainer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceOut {
+    0% { transform: scale(1); opacity: 1; }
+    20% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0) rotate(180deg); opacity: 0; visibility: hidden; }
+}
+
+@keyframes fadeOutDisappear {
+    to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes textJiggle {
+    0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+    25% { transform: translateX(-1px) translateY(-0.5px) scale(1.01); }
+    50% { transform: translateX(1px) translateY(0.5px) scale(0.99); }
+    75% { transform: translateX(-0.5px) translateY(1px) scale(1.01); }
+}
+
+@keyframes scaleResponse {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-5px) scale(1.02); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0) scale(0.9); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px) scale(0.9); }
+    20%, 40%, 60%, 80% { transform: translateX(10px) scale(0.9); }
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(-100px) rotateZ(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; }
+}
+
+@keyframes heartFloatAndSpin {
+    0% { transform: translateY(0) rotate(-45deg) scale(0.8); opacity: 0.8; }
+    100% { transform: translateY(-100vh) rotate(700deg) scale(1.5); opacity: 0; }
+}
+
+@keyframes slightScale {
+    from { transform: rotate(-45deg) scale(1); }
+    to { transform: rotate(-45deg) scale(1.05); }
+}
+
+@keyframes pulseText {
+    0% { text-shadow: 3px 3px var(--final-response-outline), -3px -3px var(--final-response-outline), 0 0 15px var(--shadow-strong); }
+    50% { text-shadow: 4px 4px var(--final-response-outline), -4px -4px var(--final-response-outline), 0 0 20px var(--shadow-strong); }
+    100% { text-shadow: 3px 3px var(--final-response-outline), -3px -3px var(--final-response-outline), 0 0 15px var(--shadow-strong); }
+}
+
+/* --- Responsive Design (Mobile First Approach) --- */
+
+/* Text size adjustments for smaller phones */
+@media (max-width: 480px) {
+    h1 { font-size: 2.8em; }
+    h2 { font-size: 2em; }
+    p { font-size: 1em; }
+    #intro-container h1 { font-size: 3em; margin-bottom: 20px; }
+    #intro-container p { font-size: 1.1em; margin-bottom: 15px; }
+    #startJourneyBtn { font-size: 1.4em; padding: 15px 30px; }
+
+    .container {
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 10px;
+    }
+    .grid-item { padding: 15px; border-radius: 10px; }
+    .grid-item h3 { font-size: 1.4em; }
+    .grid-item img { height: 150px; }
+
+    #the-question-section h2 { font-size: 2.5em; }
+    #page3-main-interaction p { font-size: 2.8em; }
+    #yesBtn3, #noBtn3 { font-size: 1.6em; padding: 15px 30px; min-width: unset; width: 80%; }
+    .buttons { flex-direction: column; gap: 20px; margin-top: 30px; }
+    #noBtn3 { /* Make it static on mobile for better usability */
+        position: relative;
+        left: unset;
+        top: unset;
+        transform: translate(0,0) scale(0.9);
+        margin: 0 auto; /* Center it */
+    }
+    #teaseResponse3 { font-size: 1.2em; min-height: 1.2em; margin-top: 15px; }
+    #finalResponse3 { font-size: 2em; margin: 30px auto; }
+    .back-home-link { font-size: 1em; padding: 10px 20px; margin-top: 20px; }
+    .content-gif { max-width: 95%; margin: 20px auto; }
+    .background-wave, .background-stars, .background-particles { display: none; } /* Simpler backgrounds for mobile */
+}
+
+/* Tablet adjustments */
+@media (min-width: 481px) and (max-width: 768px) {
+    h1 { font-size: 3.5em; }
+    h2 { font-size: 2.8em; }
+    p { font-size: 1.1em; }
+    #intro-container h1 { font-size: 3.8em; }
+    #intro-container p { font-size: 1.3em; }
+    #startJourneyBtn { font-size: 1.7em; padding: 18px 35px; }
+
+    .container {
+        padding: 30px;
+        margin: 30px auto;
+    }
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    .grid-item h3 { font-size: 1.6em; }
+    .grid-item img { height: 180px; }
+
+    #the-question-section h2 { font-size: 3em; }
+    #page3-main-interaction p { font-size: 3.5em; }
+    #yesBtn3, #noBtn3 { font-size: 1.8em; padding: 18px 35px; }
+    .buttons { gap: 30px; margin-top: 40px; }
+    #teaseResponse3 { font-size: 1.5em; }
+    #finalResponse3 { font-size: 2.5em; }
+    .back-home-link { font-size: 1.1em; padding: 12px 25px; }
+}
+
+/* Desktop specific adjustments (already well-defined by default) */
+@media (min-width: 769px) {
+    /* NoBtn on page 3 will be absolutely positioned and move */
+    #noBtn3 {
+        position: absolute;
+    }
 }
