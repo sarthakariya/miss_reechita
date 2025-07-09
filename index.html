@@ -5,25 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Special Message for Reechita</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-    <div id="main-content">
-        <h1 id="questionText">Hey Reechita, my incredibly gorgeous girl!</h1>
-        <p id="introText">You know we're already painting our world with love... but let's make this feeling shimmer across the screen too, shall we?</p>
-        <div class="buttons">
-            <button id="yesBtn">Absolutely, my love! 😉</button>
-            <button id="noBtn">No</button>
-        </div>
-        <p id="teaseResponse"></p>
-        <p id="response"></p>
-        <a href="page2.html" class="next-page-link" id="nextPageLink">Discover Our Journey! ❤️</a>
+    <div class="background-overlay"></div>
+    <div class="background-elements">
+        <img src="https://media.tenor.com/P_V_3Vd_d2gAAAAi/milk-and-mocha-hug.gif" alt="Cute bear hug GIF" class="bg-gif gif1">
+        <img src="https://i.pinimg.com/736x/0e/e4/c8/0ee4c84062d2ee39a30ce7c52d2dca65.jpg" alt="Aesthetic background image" class="bg-image img1">
     </div>
 
-    <div class="bg-graphic heart-outline graphic-1"></div>
-    <div class="bg-graphic sparkle-icon graphic-2"></div>
-    <div class="bg-graphic heart-outline graphic-3"></div>
-    <div class="bg-graphic sparkle-icon graphic-4"></div>
-    <div class="bg-graphic heart-outline graphic-5"></div>
+    <div id="intro-container" class="container">
+        <h1>Hello Reechita!</h1>
+        <p>This is a special message just for you, designed to be a unique experience.</p>
+        <button id="startJourneyBtn" class="animated-button">Start Your Journey</button>
+    </div>
 
-    <script src="script.js"></script> </body>
+    <div id="main-content" class="container hidden">
+        <h1 id="question">Will you be my Valentine?</h1>
+        <div class="buttons-container">
+            <div class="button-wrapper">
+                <button id="yesBtn" class="animated-button action-button">
+                    <span class="icon">&#10084;&#65039;</span>
+                </button>
+                <div class="button-label">Yes</div>
+            </div>
+            <div class="button-wrapper">
+                <button id="noBtn" class="animated-button action-button no-button">
+                    <span class="icon">&#10060;</span>
+                </button>
+                <div class="button-label">No</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="response-content" class="container hidden">
+        <h2 id="response1" class="response-text">Yay! I knew you'd say yes!</h2>
+        <p id="response2" class="response-text">You just made my day the happiest!</p>
+        <p id="response3" class="response-text">Can't wait to make this the best Valentine's Day ever!</p>
+        <a href="#" class="back-home-link animated-button" onclick="resetPage()">Back Home</a>
+        <img src="https://media.tenor.com/c4h5q04z_QIAAAAC/happy-dance-milk-and-mocha.gif" alt="Happy Dance GIF" class="content-gif hidden" id="happyGif">
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
