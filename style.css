@@ -63,9 +63,9 @@ body {
 
 .bg-gif, .bg-image {
     position: absolute;
-    opacity: 0.25; /* More prominent */
+    opacity: 0.4; /* More prominent */
     pointer-events: none;
-    filter: brightness(1.1) saturate(1.3); /* Enhance colors in dark mode */
+    filter: brightness(1.2) saturate(1.5); /* Enhance colors in dark mode */
     animation: floatAround 30s ease-in-out infinite alternate; /* Slower, smoother float */
 }
 
@@ -435,7 +435,7 @@ p {
     border-radius: 15px;
     margin: 25px auto;
     display: block;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .nav-links {
@@ -499,9 +499,9 @@ p {
 
 .card-image {
     max-width: 90%;
-    border-radius: 10px;
+    border-radius: 20px; /* More rounded */
     margin: 15px auto;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow */
 }
 
 /* Card Floating Animation (individual for each card type) */
