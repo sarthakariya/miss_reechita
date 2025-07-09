@@ -3,40 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Question for You</title>
+    <title>A Special Message for Reechita</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF6EB4' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E" type="image/svg+xml">
 </head>
 <body>
-    <div class="background-overlay"></div>
-    <div class="background-elements">
-        <img src="https://media.giphy.com/media/v1.GIF/media/YRtLgs5lM1PCHP2B2g/giphy.gif" alt="Hugging Bears" class="bg-gif gif1">
-        <img src="https://i.pinimg.com/564x/0f/f2/87/0ff287c80520a233b8b60a22f30b925b.jpg" alt="Aesthetic Background" class="bg-image img1">
-    </div>
+    <div class="background-wave"></div>
+    <div class="background-stars"></div>
+    <div class="background-particles"></div>
 
-    <div class="container" id="main-container">
-        <h1>Good Evening, My Love!</h1>
-        <p>I have a special question that has been on my heart.</p>
-        <p class="response-text">Will you be my Valentine?</p>
-        
-        <div class="buttons-container">
-            <div class="button-wrapper">
-                <button class="action-button" id="yesBtn">
-                    <span class="icon">&#10084;&#65039;</span>
-                </button>
-                <span class="button-label">Yes!</span>
-            </div>
-            
-            <div class="button-wrapper">
-                <button class="action-button" id="noBtn">
-                    <span class="icon">&#128546;</span>
-                </button>
-                <span class="button-label">No</span>
-                <span class="no-prompt" id="noPrompt">Are you sure? &#128557;</span>
-            </div>
+    <main id="intro-container" class="container active">
+        <h1 class="fade-in-up">Good Evening Reechita,</h1>
+        <p class="fade-in-up delay-1">I made this page to tell you something. I think you can figure it out what I am going to say, but still, let's do it yeah.</p>
+        <div class="main-gif-container">
+            <img src="https://tenor.com/LV3Gq0rOSn.gif" alt="Cute animated GIF" class="content-gif fade-in">
         </div>
-    </div>
+        <h2 class="fade-in-up delay-2">Will you be my Valentine?</h2>
+        <div class="button-container">
+            <button id="yesBtn" class="btn yes-btn fade-in-up delay-3">Yes!</button>
+            <button id="noBtn" class="btn no-btn fade-in-up delay-4">No!</button>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
