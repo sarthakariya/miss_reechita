@@ -16,7 +16,7 @@
         <div class="floating-hearts-container"></div>
     </div>
 
-    <div class="page-container">
+    <div class="page-container" id="confession-page-container">
         <h2>A Moment of Truth</h2>
 
         <p id="confession-question">Reechita, my heart has swelled with emotions for you, and there's a truth I simply must share. Will you grace me with your attention as I bare my soul?</p>
@@ -31,6 +31,7 @@
             <div class="button-wrapper">
                 <button id="confessionNoBtn" class="animated-button action-button no-button">
                     <span class="icon">&#128532;</span>
+                    <span class="no-prompt">Are you absolutely sure?</span>
                 </button>
                 <div class="button-label">Not Now</div>
             </div>
@@ -47,37 +48,60 @@
         document.addEventListener('DOMContentLoaded', () => {
             const confessionYesBtn = document.getElementById('confessionYesBtn');
             const confessionNoBtn = document.getElementById('confessionNoBtn');
+            const confessionNoPrompt = confessionNoBtn.querySelector('.no-prompt'); // Get the prompt element
             const confessionResponse = document.getElementById('confession-response');
             const confessionQuestion = document.getElementById('confession-question');
             const buttonsContainer = document.getElementById('page3-main-interaction');
             const sparkleContainer = document.querySelector('.sparkle-container');
             const floatingHeartsContainer = document.querySelector('.floating-hearts-container');
+            const pageContainer = document.getElementById('confession-page-container');
+
+            // Initial fade-in for the container
+            pageContainer.style.opacity = '0';
+            pageContainer.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                pageContainer.style.transition = 'opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
+                pageContainer.style.opacity = '1';
+                pageContainer.style.transform = 'translateY(0)';
+            }, 100);
 
             let moveConfessionNoCount = 0;
             const maxConfessionMoves = 15; // Increased attempts for evasion
+            const confessionNoPrompts = [
+                "Are you absolutely sure?",
+                "This is important!",
+                "Don't leave me hanging! 🥺",
+                "But I really want to tell you...",
+                "You might regret it! 😉",
+                "It's a secret for your ears only! 🤫", // Easter egg
+                "Please don't say no! 😔"
+            ];
+            let currentConfessionPromptIndex = 0;
 
             function setConfessionNoButtonInitialPosition() {
-                if (window.innerWidth > 768 && buttonsContainer) {
-                    // Position No button relative to the Yes button within the container
+                if (buttonsContainer) {
                     confessionNoBtn.style.position = 'absolute';
-                    confessionNoBtn.style.left = `${confessionYesBtn.offsetLeft + confessionYesBtn.offsetWidth + 100}px`; // 100px gap
-                    confessionNoBtn.style.top = `${confessionYesBtn.offsetTop}px`;
+                    if (window.innerWidth > 768) {
+                        confessionNoBtn.style.left = `${confessionYesBtn.offsetLeft + confessionYesBtn.offsetWidth + 100}px`;
+                        confessionNoBtn.style.top = `${confessionYesBtn.offsetTop}px`;
+                    } else {
+                        const containerRect = buttonsContainer.getBoundingClientRect();
+                        const buttonRect = confessionNoBtn.getBoundingClientRect();
+                        confessionNoBtn.style.left = `${containerRect.width - buttonRect.width - 20}px`;
+                        confessionNoBtn.style.top = `${confessionYesBtn.offsetTop + 20}px`;
+                    }
                     confessionNoBtn.style.transform = 'translateY(0) scale(1)';
-                } else {
-                    confessionNoBtn.style.position = 'static';
-                    confessionNoBtn.style.transform = 'none';
-                    confessionNoBtn.style.left = 'unset';
-                    confessionNoBtn.style.top = 'unset';
                 }
                 moveConfessionNoCount = 0;
                 confessionNoBtn.classList.remove('float-animation');
+                confessionNoPrompt.classList.remove('show');
+                confessionNoPrompt.textContent = confessionNoPrompts[0];
+                currentConfessionPromptIndex = 0;
             }
             window.addEventListener('load', setConfessionNoButtonInitialPosition);
             window.addEventListener('resize', setConfessionNoButtonInitialPosition);
 
             function handleConfessionNoButtonInteraction() {
-                if (window.innerWidth <= 768) return;
-
                 if (moveConfessionNoCount >= maxConfessionMoves) {
                     confessionNoBtn.style.position = 'static';
                     confessionNoBtn.style.transform = 'none';
@@ -85,6 +109,8 @@
                     confessionNoBtn.style.cursor = 'not-allowed';
                     confessionNoBtn.removeEventListener('mouseover', handleConfessionNoButtonInteraction);
                     confessionNoBtn.removeEventListener('click', handleConfessionNoButtonInteraction);
+                    confessionNoPrompt.textContent = "Alright, maybe another time... 💔"; // Easter egg
+                    confessionNoPrompt.classList.add('show');
                     return;
                 }
 
@@ -97,7 +123,7 @@
                 let newX, newY;
                 let attempts = 0;
                 const padding = 20;
-                const minDistanceToYes = 180; // Ensure distance from Yes button
+                const minDistanceToYes = 150; // Similar distance as main page
 
                 do {
                     newX = Math.random() * (containerRect.width - buttonRect.width - padding * 2) + padding;
@@ -115,7 +141,7 @@
                     );
 
                     attempts++;
-                    if (attempts > 100) {
+                    if (attempts > 150) {
                         newX = Math.random() * (containerRect.width - buttonRect.width);
                         newY = Math.random() * (containerRect.height - buttonRect.height);
                         break;
@@ -131,8 +157,15 @@
                 confessionNoBtn.classList.add('float-animation');
                 moveConfessionNoCount++;
 
+                confessionNoPrompt.textContent = confessionNoPrompts[currentConfessionPromptIndex];
+                confessionNoPrompt.classList.add('show');
+                currentConfessionPromptIndex = (currentConfessionPromptIndex + 1) % confessionNoPrompts.length;
+
                 setTimeout(() => {
                     confessionNoBtn.classList.remove('float-animation');
+                    if (moveConfessionNoCount < maxConfessionMoves) {
+                        confessionNoPrompt.classList.remove('show');
+                    }
                 }, 600);
             }
 
@@ -144,7 +177,6 @@
                 confessionQuestion.style.opacity = '0';
                 confessionQuestion.style.transform = 'translateY(-20px)';
 
-                // Animate and hide buttons
                 const buttons = [confessionNoBtn, confessionYesBtn];
                 buttons.forEach(btn => {
                     btn.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
@@ -152,6 +184,9 @@
                     btn.style.transform = 'scale(0.5)';
                     btn.style.pointerEvents = 'none';
                 });
+
+                // Hide the prompt if it's visible
+                confessionNoPrompt.classList.remove('show');
 
                 setTimeout(() => {
                     confessionQuestion.classList.add('hidden');
@@ -168,7 +203,7 @@
                 }, 500);
             });
 
-            // Re-add background sparkles/hearts to new pages
+            // Re-add background sparkles/constant hearts
             function createSparkle() {
                 const sparkle = document.createElement('div');
                 sparkle.classList.add('sparkle');
@@ -185,24 +220,24 @@
                 sparkle.addEventListener('animationend', () => sparkle.remove());
             }
 
-            function createFloatingHeart(type) {
+            function createFloatingHeart() {
                 const heart = document.createElement('div');
                 heart.classList.add('floating-heart');
                 heart.innerHTML = '&#10084;&#65039;';
-
                 floatingHeartsContainer.appendChild(heart);
+
                 heart.style.fontSize = `${Math.random() * 1.5 + 1}em`;
                 heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.bottom = `${Math.random() * 100}vh`;
+                heart.style.bottom = `-${Math.random() * 20 + 50}px`; // Start off-screen bottom
                 heart.style.animationDuration = `${Math.random() * 8 + 10}s`;
                 heart.style.animationDelay = `-${Math.random() * 10}s`;
                 heart.style.opacity = `${Math.random() * 0.2 + 0.1}`;
                 heart.style.filter = `blur(${Math.random() * 1}px)`;
-                heart.addEventListener('animationend', () => heart.remove());
+                // No remove() listener as they loop infinitely
             }
 
             for (let i = 0; i < 50; i++) { createSparkle(); }
-            for (let i = 0; i < 15; i++) { createFloatingHeart('background'); }
+            for (let i = 0; i < 15; i++) { createFloatingHeart(); }
         });
     </script>
 </body>
