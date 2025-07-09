@@ -4,19 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Journey of Memories</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-wave"></div>
-    <div class="background-stars"></div>
-    <div class="background-particles"></div>
-
-    <main id="memory-container" class="container active">
-        <h1 class="fade-in-up">Our Journey of Memories...</h1>
-        <p class="fade-in-up delay-1">Each card holds a special moment we've shared. Flip them over to relive the magic!</p>
+    <main id="memory-container" class="container active fade-in-up">
+        <h1>Our Journey of Memories...</h1>
+        <p>Each card holds a special moment we've shared. Flip them over to relive the magic!</p>
         
-        <div class="grid-container fade-in-up delay-2">
+        <div class="grid-container">
             <div class="grid-item card" data-id="1">
                 <h3>Our First Meet</h3>
                 <p>The day our paths crossed and everything changed.</p>
@@ -35,7 +31,7 @@
             </div>
         </div>
 
-        <button id="confessionBtn" class="btn yes-btn fade-in-up delay-3" onclick="location.href='page3.html'">My Confession Awaits</button>
+        <button id="confessionBtn" class="btn primary-btn">My Heart's Confession Awaits</button>
     </main>
 
     <script src="script.js"></script>
