@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You, My Love!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="background-elements">
+        <img src="https://media.tenor.com/P_V_3Vd_d2gAAAAi/milk-and-mocha-hug.gif" alt="Cute bear hug GIF" class="bg-gif gif1">
+        <img src="https://i.pinimg.com/736x/0e/e4/c8/0ee4c84062d2ee39a30ce7c52d2dca65.jpg" alt="Aesthetic background image" class="bg-image img1">
+        <div class="sparkle-container"></div>
+        <div class="floating-hearts-container"></div>
+    </div>
+
+    <div class="page-container" id="yes-response-container">
+        <h2 id="yesResponseHeading">Thank You, My Dearest!</h2>
+        <p>My heart is overflowing with joy! Knowing that you feel the same fills me with an incredible happiness.</p>
+        <p>You truly are magnificent, and I cherish every moment we share. My love for you grows with each passing day. Thank you for making my world so much brighter, Reechita. I love you!</p>
+        <img src="https://media.tenor.com/P_V_3Vd_d2gAAAAi/milk-and-mocha-hug.gif" alt="Happy Hug GIF" class="content-gif page-image">
+        <div class="nav-links">
+            <a href="page2.html" class="animated-button">Continue to Our Story ❤️</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sparkleContainer = document.querySelector('.sparkle-container');
+            const floatingHeartsContainer = document.querySelector('.floating-hearts-container');
+            const yesResponseContainer = document.getElementById('yes-response-container');
+
+            // Initial fade-in for the container
+            yesResponseContainer.style.opacity = '0';
+            yesResponseContainer.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                yesResponseContainer.style.transition = 'opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
+                yesResponseContainer.style.opacity = '1';
+                yesResponseContainer.style.transform = 'translateY(0)';
+            }, 100);
+
+            // Re-add background sparkles and constant hearts
+            function createSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkleContainer.appendChild(sparkle);
+
+                const size = Math.random() * 4 + 2;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.left = `${Math.random() * 100}vw`;
+                sparkle.style.top = `${Math.random() * 100}vh`;
+                sparkle.style.animationDelay = `-${Math.random() * 10}s`;
+                sparkle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                sparkle.style.filter = `blur(${Math.random() * 0.5}px)`;
+                sparkle.addEventListener('animationend', () => sparkle.remove());
+            }
+
+            function createFloatingHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '&#10084;&#65039;';
+                floatingHeartsContainer.appendChild(heart);
+
+                heart.style.fontSize = `${Math.random() * 1.5 + 1}em`;
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.bottom = `-${Math.random() * 20 + 50}px`; // Start off-screen bottom
+                heart.style.animationDuration = `${Math.random() * 8 + 10}s`;
+                heart.style.animationDelay = `-${Math.random() * 10}s`;
+                heart.style.opacity = `${Math.random() * 0.2 + 0.1}`;
+                heart.style.filter = `blur(${Math.random() * 1}px)`;
+                // No remove() listener as they loop infinitely
+            }
+
+            for (let i = 0; i < 50; i++) { createSparkle(); }
+            for (let i = 0; i < 15; i++) { createFloatingHeart(); }
+        });
+    </script>
+</body>
+</html>
