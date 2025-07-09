@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 mainContainer.style.transform = 'translateY(-30px) scale(0.95)';
             }
             setTimeout(() => {
-                window.location.href = 'page2.html'; // Corrected navigation
+                window.location.href = 'page2.html'; // Corrected navigation to page2.html
             }, 800); // Match animation duration
         });
     }
