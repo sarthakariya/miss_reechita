@@ -55,6 +55,16 @@
         document.addEventListener('DOMContentLoaded', () => {
             const sparkleContainer = document.querySelector('.sparkle-container');
             const floatingHeartsContainer = document.querySelector('.floating-hearts-container');
+            const pageContainer = document.querySelector('.page-container');
+
+            // Initial fade-in for the container
+            pageContainer.style.opacity = '0';
+            pageContainer.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                pageContainer.style.transition = 'opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
+                pageContainer.style.opacity = '1';
+                pageContainer.style.transform = 'translateY(0)';
+            }, 100);
             
             function createSparkle() {
                 const sparkle = document.createElement('div');
@@ -72,24 +82,24 @@
                 sparkle.addEventListener('animationend', () => sparkle.remove()); // Clean up
             }
 
-            function createFloatingHeart(type) {
+            function createFloatingHeart() {
                 const heart = document.createElement('div');
                 heart.classList.add('floating-heart');
                 heart.innerHTML = '&#10084;&#65039;';
-
                 floatingHeartsContainer.appendChild(heart);
+
                 heart.style.fontSize = `${Math.random() * 1.5 + 1}em`;
                 heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.bottom = `${Math.random() * 100}vh`;
+                heart.style.bottom = `-${Math.random() * 20 + 50}px`; // Start off-screen bottom
                 heart.style.animationDuration = `${Math.random() * 8 + 10}s`;
                 heart.style.animationDelay = `-${Math.random() * 10}s`;
                 heart.style.opacity = `${Math.random() * 0.2 + 0.1}`;
                 heart.style.filter = `blur(${Math.random() * 1}px)`;
-                heart.addEventListener('animationend', () => heart.remove());
+                // No remove() listener as they loop infinitely
             }
 
             for (let i = 0; i < 50; i++) { createSparkle(); }
-            for (let i = 0; i < 15; i++) { createFloatingHeart('background'); }
+            for (let i = 0; i < 15; i++) { createFloatingHeart(); }
         });
     </script>
 </body>
