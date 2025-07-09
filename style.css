@@ -18,6 +18,7 @@
     --card-bg: rgba(50, 20, 80, 0.8); /* Dark purple for cards */
     --card-border: rgba(200, 150, 255, 0.3);
     --card-text: #E8DFF5;
+    --prompt-text-color: #FFEFD5; /* Papaya Whip for prompts */
 }
 
 body {
@@ -122,14 +123,18 @@ body {
     color: var(--heading-color); /* Pink hearts */
     font-size: 2em;
     pointer-events: none;
-    animation: floatUpAndFade 6s ease-out forwards;
+    animation: floatUpLoop 10s linear infinite; /* Changed to infinite loop */
     text-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
+    z-index: 5; /* Ensure hearts are above background images but below content */
 }
 
-@keyframes floatUpAndFade {
-    0% { transform: translateY(0) scale(0.5); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+/* New Keyframe for infinite floating hearts */
+@keyframes floatUpLoop {
+    0% { transform: translateY(0) scale(0.8); opacity: 0.5; }
+    25% { transform: translateY(-25vh) translateX(10vw) scale(1); opacity: 0.7; }
+    50% { transform: translateY(-50vh) translateX(-10vw) scale(0.9); opacity: 0.6; }
+    75% { transform: translateY(-75vh) translateX(5vw) scale(1.1); opacity: 0.8; }
+    100% { transform: translateY(-100vh) scale(0.8); opacity: 0.5; }
 }
 
 
@@ -307,6 +312,8 @@ p {
     background-color: var(--interactive-element-bg);
     border-color: var(--interactive-element-border);
     position: absolute;
+    /* Added for the confirmation prompt */
+    padding-bottom: 25px; /* Make space for text */
 }
 
 #noBtn:hover {
@@ -315,6 +322,28 @@ p {
     box-shadow: 0 0 30px var(--no-button-color);
     cursor: default;
 }
+
+/* No button confirmation prompt */
+.no-prompt {
+    position: absolute;
+    bottom: -30px; /* Position below the button */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1em;
+    color: var(--prompt-text-color);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    pointer-events: none; /* Do not block clicks */
+    z-index: 25; /* Above button */
+}
+
+.no-prompt.show {
+    opacity: 1;
+}
+
 
 /* Response Content */
 #response-content {
@@ -571,6 +600,12 @@ p {
         gap: 25px;
     }
     .love-card { min-height: 300px; }
+    /* Ensure no button still attempts to move on smaller screens, but within constrained bounds */
+    #noBtn, #confessionNoBtn {
+        position: relative; /* Change to relative for mobile for better flow with flex, still allows transform */
+        transform: none !important; /* Override initial transform to allow JS to control */
+    }
+    .no-prompt { bottom: -25px; font-size: 0.9em; }
 }
 
 @media (max-width: 480px) {
@@ -592,4 +627,5 @@ p {
     .love-card h3 { font-size: 2.2em; }
     .love-card p { font-size: 1em; }
     .card-image { max-width: 80%; }
+    .no-prompt { font-size: 0.8em; }
 }
