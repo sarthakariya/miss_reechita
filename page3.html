@@ -3,73 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Grand Question For You, Reechita</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <title>My Confession to You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="content-page">
-    <nav class="secondary-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="page2.html">Our Journey</a></li>
-            <li><a href="#the-confession">The Confession</a></li>
-        </ul>
-    </nav>
+<body>
+    <div class="background-overlay"></div>
+    <div class="page-container">
+        <h2>A Moment of Truth</h2>
 
-    <div class="container">
-        <h2 class="section-heading">My Dearest Reechita, My Sweetheart, My Soulmate,</h2>
-        <p class="animated-paragraph delay-05">Every word I write here feels inadequate to express the depth of my feelings for you. You are more than just a person to me; you are the missing piece, the melody to my song, the answer to prayers I didn't even know I had.</p>
-        <p class="animated-paragraph delay-1">You make my heart race and my world feel vibrant. With you, every mundane moment becomes an adventure, and every challenge feels conquerable. You understand me in ways no one else ever has, and your presence brings a comfort that settles deep within my soul.</p>
-        <p class="animated-paragraph delay-15">I've imagined this moment countless times, trying to find the perfect words, the perfect way to tell you how truly special you are to me.</p>
-
-        <img src="https://media.giphy.com/media/v1.GIF/l4EoJ24K6M8l3E5nG.gif" alt="Love Heart GIF" class="content-gif animated-gif delay-2" style="--gif-delay: 2s;">
-        <p style="text-align: center; margin-bottom: 40px; font-style: italic;">
-            (My heart just does this every time I think of you!) <br>
-            **Replace with a beautiful, heartfelt GIF of your choice!**
-        </p>
-
-        <section id="the-confession" style="margin-top: 80px; text-align: center; position: relative;">
-            <h2 class="section-heading animated-heading delay-25" style="font-size: 4em; color: var(--primary-love); text-shadow: 2px 2px 8px var(--shadow-strong);">Reechita, My Beautiful, Amazing Girl...</h2>
-
-            <div id="page3-main-interaction">
-                <p class="animated-confession delay-3" style="font-family: 'Great Vibes', cursive; font-size: 5em; color: var(--button-primary); margin-top: 40px; line-height: 1.2;">
-                    <strong>Will you be my girlfriend?</strong>
-                </p>
-
-                <div class="buttons" style="margin-top: 60px;">
-                    <button id="yesBtn3" class="animated-button pulse-grow">Absolutely, YES! My Heart Says Yes! ❤️</button>
-                    <button id="noBtn3">No</button>
-                </div>
-                <p id="teaseResponse3" style="font-family: 'Dancing Script', cursive; font-size: 2em; color: var(--tease-gold); margin-top: 30px; opacity: 0; transition: opacity 0.5s ease-out; min-height: 2.5em; text-shadow: 1px 1px 3px var(--shadow-light); position: relative; z-index: 6;"></p>
+        <p id="confession-question">Reechita, with every beat of my heart, I want to confess my deepest feelings to you. Will you let me?</p>
+        
+        <div class="buttons-container">
+            <div class="button-wrapper">
+                <button id="confessionYesBtn" class="animated-button action-button">
+                    <span class="icon">&#128150;</span>
+                </button>
+                <div class="button-label">Yes, Tell Me!</div>
             </div>
-
-            <p id="finalResponse3" style="font-family: 'Dancing Script', cursive; font-weight: 700; font-size: 4em; color: var(--final-response-text); text-shadow: 3px 3px var(--final-response-outline), -3px -3px var(--final-response-outline), 3px -3px var(--final-response-outline), -3px 3px var(--final-response-outline), 0 0 20px var(--shadow-strong); opacity: 0; transform: translateY(60px) scale(0.8); line-height: 1.3; margin: 60px auto; max-width: 90%; z-index: 7; position: relative;"></p>
-
-            <p class="animated-paragraph delay-35" style="font-size: 1.5em; margin-top: 60px; font-weight: bold;">
-                My heart is completely yours, and I promise to cherish every single moment with you, to make you smile every day, and to embark on the most incredible journey together.
-            </p>
-
-            <img src="https://media.giphy.com/media/v1.GIF/l0Nh5Q5y4jQp0rDnG.gif" alt="Cute Love Bear GIF" class="content-gif animated-gif delay-4" style="--gif-delay: 4s;">
-            <p style="text-align: center; margin-bottom: 40px; font-style: italic;">
-                (This little guy represents all the love I have for you!) <br>
-                **Replace with another sweet, romantic GIF!**
-            </p>
-        </section>
-
-        <div style="text-align: center; margin-top: 100px;">
-            <p style="font-family: 'Pacifico', cursive; font-size: 2em; color: var(--button-primary);">
-                I'm eagerly, anxiously, and hopefully waiting for your answer, my love.
-            </p>
-            <p style="font-family: 'Dancing Script', cursive; font-size: 2.5em; color: var(--primary-love); margin-top: 20px;">
-                With all my heart, always, <br>Your Sarthak ❤️
-            </p>
+            <div class="button-wrapper">
+                <button id="confessionNoBtn" class="animated-button action-button no-button">
+                    <span class="icon">&#128532;</span>
+                </button>
+                <div class="button-label">Not Now</div>
+            </div>
         </div>
 
-        <div style="text-align: center; margin-top: 60px;">
-            <a href="index.html" class="back-home-link">Back to Home</a>
-            <a href="page2.html" class="back-home-link" style="margin-left: 20px;">Back to Our Journey</a>
+        <p id="confession-response" class="response-text hidden">My dearest Reechita, I love you more than words can express. You are my sunshine, my moon, and all my stars. Every moment with you is a treasure, and I wish for many more. You complete me. Always and forever, Sarthak.</p>
+
+        <div class="nav-links">
+            <a href="index.html" class="animated-button back-home-link">Go Back Home</a>
         </div>
     </div>
-    <script src="script3.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const confessionYesBtn = document.getElementById('confessionYesBtn');
+            const confessionNoBtn = document.getElementById('confessionNoBtn');
+            const confessionResponse = document.getElementById('confession-response');
+            const confessionQuestion = document.getElementById('confession-question');
+            const buttonsContainer = document.querySelector('#page3-main-interaction .buttons-container') || document.querySelector('.page-container .buttons-container');
+
+            let moveConfessionNoCount = 0;
+            const maxConfessionMoves = 10;
+
+            function moveConfessionNoButton() {
+                if (window.innerWidth <= 768) return; // Static on small screens
+
+                if (moveConfessionNoCount >= maxConfessionMoves) {
+                    confessionNoBtn.style.position = 'static';
+                    confessionNoBtn.style.transform = 'none';
+                    confessionNoBtn.classList.remove('float-animation');
+                    confessionNoBtn.style.cursor = 'not-allowed';
+                    confessionNoBtn.removeEventListener('mouseover', moveConfessionNoButton);
+                    confessionNoBtn.removeEventListener('click', moveConfessionNoButton);
+                    return;
+                }
+
+                if (!buttonsContainer) return; // Ensure container exists
+
+                const containerRect = buttonsContainer.getBoundingClientRect();
+                const buttonRect = confessionNoBtn.getBoundingClientRect();
+
+                let newX, newY;
+                let attempts = 0;
+                const padding = 20;
+
+                do {
+                    newX = Math.random() * (containerRect.width - buttonRect.width - padding * 2) + padding;
+                    newY = Math.random() * (containerRect.height - buttonRect.height - padding * 2) + padding;
+                    attempts++;
+                    if (attempts > 50) {
+                        console.warn("Could not find a valid new position for Confession No button.");
+                        break;
+                    }
+                } while (
+                    newX < 0 || newX + buttonRect.width > containerRect.width ||
+                    newY < 0 || newY + buttonRect.height > containerRect.height ||
+                    (Math.abs(newX - (confessionYesBtn.offsetLeft + confessionYesBtn.offsetWidth / 2)) < 150 && Math.abs(newY - (confessionYesBtn.offsetTop + confessionYesBtn.offsetHeight / 2)) < 150)
+                );
+
+                confessionNoBtn.style.position = 'absolute';
+                confessionNoBtn.style.left = `${newX}px`;
+                confessionNoBtn.style.top = `${newY}px`;
+                confessionNoBtn.classList.add('float-animation');
+                moveConfessionNoCount++;
+
+                setTimeout(() => {
+                    confessionNoBtn.classList.remove('float-animation');
+                }, 800);
+            }
+
+            confessionNoBtn.addEventListener('mouseover', moveConfessionNoButton);
+            confessionNoBtn.addEventListener('click', moveConfessionNoButton);
+
+            confessionYesBtn.addEventListener('click', () => {
+                confessionQuestion.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                confessionQuestion.style.opacity = '0';
+                confessionQuestion.style.transform = 'translateY(-20px)';
+
+                confessionNoBtn.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                confessionNoBtn.style.opacity = '0';
+                confessionNoBtn.style.transform = 'scale(0.5)';
+                confessionNoBtn.style.pointerEvents = 'none'; // Disable interaction
+
+                confessionYesBtn.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                confessionYesBtn.style.opacity = '0';
+                confessionYesBtn.style.transform = 'scale(0.5)';
+                confessionYesBtn.style.pointerEvents = 'none'; // Disable interaction
+
+
+                setTimeout(() => {
+                    confessionQuestion.classList.add('hidden');
+                    confessionNoBtn.classList.add('hidden');
+                    confessionYesBtn.classList.add('hidden');
+
+                    confessionResponse.classList.remove('hidden');
+                    confessionResponse.style.opacity = '0';
+                    confessionResponse.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        confessionResponse.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                        confessionResponse.style.opacity = '1';
+                        confessionResponse.style.transform = 'translateY(0)';
+                    }, 50);
+                }, 500);
+            });
+
+            // Initial position for confessionNoBtn
+            function setConfessionNoButtonInitialPosition() {
+                if (window.innerWidth > 768 && buttonsContainer) {
+                    const yesBtnRect = confessionYesBtn.getBoundingClientRect();
+                    const containerRect = buttonsContainer.getBoundingClientRect();
+
+                    confessionNoBtn.style.position = 'absolute';
+                    confessionNoBtn.style.left = `${yesBtnRect.right - containerRect.left + 80}px`;
+                    confessionNoBtn.style.top = `${yesBtnRect.top - containerRect.top}px`;
+                    confessionNoBtn.style.transform = 'translateY(0)';
+                } else {
+                    confessionNoBtn.style.position = 'static';
+                    confessionNoBtn.style.transform = 'none';
+                    confessionNoBtn.style.left = 'unset';
+                    confessionNoBtn.style.top = 'unset';
+                }
+                moveConfessionNoCount = 0;
+            }
+            window.addEventListener('load', setConfessionNoButtonInitialPosition);
+            window.addEventListener('resize', setConfessionNoButtonInitialPosition);
+        });
+    </script>
 </body>
 </html>
