@@ -9,12 +9,19 @@
 </head>
 <body>
     <div class="background-overlay"></div>
+    <div class="background-elements">
+        <img src="https://media.tenor.com/P_V_3Vd_d2gAAAAi/milk-and-mocha-hug.gif" alt="Cute bear hug GIF" class="bg-gif gif1">
+        <img src="https://i.pinimg.com/736x/0e/e4/c8/0ee4c84062d2ee39a30ce7c52d2dca65.jpg" alt="Aesthetic background image" class="bg-image img1">
+        <div class="sparkle-container"></div>
+        <div class="floating-hearts-container"></div>
+    </div>
+
     <div class="page-container">
         <h2>A Moment of Truth</h2>
 
-        <p id="confession-question">Reechita, with every beat of my heart, I want to confess my deepest feelings to you. Will you let me?</p>
+        <p id="confession-question">Reechita, my heart has swelled with emotions for you, and there's a truth I simply must share. Will you grace me with your attention as I bare my soul?</p>
         
-        <div class="buttons-container">
+        <div class="buttons-container" id="page3-main-interaction">
             <div class="button-wrapper">
                 <button id="confessionYesBtn" class="animated-button action-button">
                     <span class="icon">&#128150;</span>
@@ -29,10 +36,10 @@
             </div>
         </div>
 
-        <p id="confession-response" class="response-text hidden">My dearest Reechita, I love you more than words can express. You are my sunshine, my moon, and all my stars. Every moment with you is a treasure, and I wish for many more. You complete me. Always and forever, Sarthak.</p>
+        <p id="confession-response" class="response-text hidden">My dearest Reechita, from the moment I truly saw you, my world shifted. Every laugh, every shared glance, every quiet moment has woven itself into the fabric of my being. You inspire me, challenge me, and make me feel a depth of happiness I never knew was possible. With all my heart, I love you. You are my sunshine, my moon, and all my stars. Every moment with you is a treasure, and I wish for many more. You complete me. Always and forever, Sarthak.</p>
 
         <div class="nav-links">
-            <a href="index.html" class="animated-button back-home-link">Go Back Home</a>
+            <a href="index.html" class="animated-button back-home-link">Return to the Beginning ✨</a>
         </div>
     </div>
 
@@ -42,103 +49,20 @@
             const confessionNoBtn = document.getElementById('confessionNoBtn');
             const confessionResponse = document.getElementById('confession-response');
             const confessionQuestion = document.getElementById('confession-question');
-            const buttonsContainer = document.querySelector('#page3-main-interaction .buttons-container') || document.querySelector('.page-container .buttons-container');
+            const buttonsContainer = document.getElementById('page3-main-interaction');
+            const sparkleContainer = document.querySelector('.sparkle-container');
+            const floatingHeartsContainer = document.querySelector('.floating-hearts-container');
 
             let moveConfessionNoCount = 0;
-            const maxConfessionMoves = 10;
+            const maxConfessionMoves = 15; // Increased attempts for evasion
 
-            function moveConfessionNoButton() {
-                if (window.innerWidth <= 768) return; // Static on small screens
-
-                if (moveConfessionNoCount >= maxConfessionMoves) {
-                    confessionNoBtn.style.position = 'static';
-                    confessionNoBtn.style.transform = 'none';
-                    confessionNoBtn.classList.remove('float-animation');
-                    confessionNoBtn.style.cursor = 'not-allowed';
-                    confessionNoBtn.removeEventListener('mouseover', moveConfessionNoButton);
-                    confessionNoBtn.removeEventListener('click', moveConfessionNoButton);
-                    return;
-                }
-
-                if (!buttonsContainer) return; // Ensure container exists
-
-                const containerRect = buttonsContainer.getBoundingClientRect();
-                const buttonRect = confessionNoBtn.getBoundingClientRect();
-
-                let newX, newY;
-                let attempts = 0;
-                const padding = 20;
-
-                do {
-                    newX = Math.random() * (containerRect.width - buttonRect.width - padding * 2) + padding;
-                    newY = Math.random() * (containerRect.height - buttonRect.height - padding * 2) + padding;
-                    attempts++;
-                    if (attempts > 50) {
-                        console.warn("Could not find a valid new position for Confession No button.");
-                        break;
-                    }
-                } while (
-                    newX < 0 || newX + buttonRect.width > containerRect.width ||
-                    newY < 0 || newY + buttonRect.height > containerRect.height ||
-                    (Math.abs(newX - (confessionYesBtn.offsetLeft + confessionYesBtn.offsetWidth / 2)) < 150 && Math.abs(newY - (confessionYesBtn.offsetTop + confessionYesBtn.offsetHeight / 2)) < 150)
-                );
-
-                confessionNoBtn.style.position = 'absolute';
-                confessionNoBtn.style.left = `${newX}px`;
-                confessionNoBtn.style.top = `${newY}px`;
-                confessionNoBtn.classList.add('float-animation');
-                moveConfessionNoCount++;
-
-                setTimeout(() => {
-                    confessionNoBtn.classList.remove('float-animation');
-                }, 800);
-            }
-
-            confessionNoBtn.addEventListener('mouseover', moveConfessionNoButton);
-            confessionNoBtn.addEventListener('click', moveConfessionNoButton);
-
-            confessionYesBtn.addEventListener('click', () => {
-                confessionQuestion.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-                confessionQuestion.style.opacity = '0';
-                confessionQuestion.style.transform = 'translateY(-20px)';
-
-                confessionNoBtn.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-                confessionNoBtn.style.opacity = '0';
-                confessionNoBtn.style.transform = 'scale(0.5)';
-                confessionNoBtn.style.pointerEvents = 'none'; // Disable interaction
-
-                confessionYesBtn.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-                confessionYesBtn.style.opacity = '0';
-                confessionYesBtn.style.transform = 'scale(0.5)';
-                confessionYesBtn.style.pointerEvents = 'none'; // Disable interaction
-
-
-                setTimeout(() => {
-                    confessionQuestion.classList.add('hidden');
-                    confessionNoBtn.classList.add('hidden');
-                    confessionYesBtn.classList.add('hidden');
-
-                    confessionResponse.classList.remove('hidden');
-                    confessionResponse.style.opacity = '0';
-                    confessionResponse.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        confessionResponse.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
-                        confessionResponse.style.opacity = '1';
-                        confessionResponse.style.transform = 'translateY(0)';
-                    }, 50);
-                }, 500);
-            });
-
-            // Initial position for confessionNoBtn
             function setConfessionNoButtonInitialPosition() {
                 if (window.innerWidth > 768 && buttonsContainer) {
-                    const yesBtnRect = confessionYesBtn.getBoundingClientRect();
-                    const containerRect = buttonsContainer.getBoundingClientRect();
-
+                    // Position No button relative to the Yes button within the container
                     confessionNoBtn.style.position = 'absolute';
-                    confessionNoBtn.style.left = `${yesBtnRect.right - containerRect.left + 80}px`;
-                    confessionNoBtn.style.top = `${yesBtnRect.top - containerRect.top}px`;
-                    confessionNoBtn.style.transform = 'translateY(0)';
+                    confessionNoBtn.style.left = `${confessionYesBtn.offsetLeft + confessionYesBtn.offsetWidth + 100}px`; // 100px gap
+                    confessionNoBtn.style.top = `${confessionYesBtn.offsetTop}px`;
+                    confessionNoBtn.style.transform = 'translateY(0) scale(1)';
                 } else {
                     confessionNoBtn.style.position = 'static';
                     confessionNoBtn.style.transform = 'none';
@@ -146,9 +70,139 @@
                     confessionNoBtn.style.top = 'unset';
                 }
                 moveConfessionNoCount = 0;
+                confessionNoBtn.classList.remove('float-animation');
             }
             window.addEventListener('load', setConfessionNoButtonInitialPosition);
             window.addEventListener('resize', setConfessionNoButtonInitialPosition);
+
+            function handleConfessionNoButtonInteraction() {
+                if (window.innerWidth <= 768) return;
+
+                if (moveConfessionNoCount >= maxConfessionMoves) {
+                    confessionNoBtn.style.position = 'static';
+                    confessionNoBtn.style.transform = 'none';
+                    confessionNoBtn.classList.remove('float-animation');
+                    confessionNoBtn.style.cursor = 'not-allowed';
+                    confessionNoBtn.removeEventListener('mouseover', handleConfessionNoButtonInteraction);
+                    confessionNoBtn.removeEventListener('click', handleConfessionNoButtonInteraction);
+                    return;
+                }
+
+                if (!buttonsContainer) return;
+
+                const containerRect = buttonsContainer.getBoundingClientRect();
+                const buttonRect = confessionNoBtn.getBoundingClientRect();
+                const yesBtnRect = confessionYesBtn.getBoundingClientRect();
+
+                let newX, newY;
+                let attempts = 0;
+                const padding = 20;
+                const minDistanceToYes = 180; // Ensure distance from Yes button
+
+                do {
+                    newX = Math.random() * (containerRect.width - buttonRect.width - padding * 2) + padding;
+                    newY = Math.random() * (containerRect.height - buttonRect.height - padding * 2) + padding;
+
+                    const newNoCenterX = newX + buttonRect.width / 2;
+                    const newNoCenterY = newY + buttonRect.height / 2;
+
+                    const yesCenterX = confessionYesBtn.offsetLeft + confessionYesBtn.offsetWidth / 2;
+                    const yesCenterY = confessionYesBtn.offsetTop + confessionYesBtn.offsetHeight / 2;
+
+                    const distance = Math.sqrt(
+                        Math.pow(newNoCenterX - yesCenterX, 2) +
+                        Math.pow(newNoCenterY - yesCenterY, 2)
+                    );
+
+                    attempts++;
+                    if (attempts > 100) {
+                        newX = Math.random() * (containerRect.width - buttonRect.width);
+                        newY = Math.random() * (containerRect.height - buttonRect.height);
+                        break;
+                    }
+                } while (
+                    newX < 0 || newX + buttonRect.width > containerRect.width ||
+                    newY < 0 || newY + buttonRect.height > containerRect.height ||
+                    distance < minDistanceToYes
+                );
+
+                confessionNoBtn.style.left = `${newX}px`;
+                confessionNoBtn.style.top = `${newY}px`;
+                confessionNoBtn.classList.add('float-animation');
+                moveConfessionNoCount++;
+
+                setTimeout(() => {
+                    confessionNoBtn.classList.remove('float-animation');
+                }, 600);
+            }
+
+            confessionNoBtn.addEventListener('mouseover', handleConfessionNoButtonInteraction);
+            confessionNoBtn.addEventListener('click', handleConfessionNoButtonInteraction);
+
+            confessionYesBtn.addEventListener('click', () => {
+                confessionQuestion.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                confessionQuestion.style.opacity = '0';
+                confessionQuestion.style.transform = 'translateY(-20px)';
+
+                // Animate and hide buttons
+                const buttons = [confessionNoBtn, confessionYesBtn];
+                buttons.forEach(btn => {
+                    btn.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                    btn.style.opacity = '0';
+                    btn.style.transform = 'scale(0.5)';
+                    btn.style.pointerEvents = 'none';
+                });
+
+                setTimeout(() => {
+                    confessionQuestion.classList.add('hidden');
+                    buttons.forEach(btn => btn.classList.add('hidden'));
+
+                    confessionResponse.classList.remove('hidden');
+                    confessionResponse.style.opacity = '0';
+                    confessionResponse.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        confessionResponse.style.transition = 'opacity 1.5s cubic-bezier(0.23, 1, 0.32, 1), transform 1.5s cubic-bezier(0.23, 1, 0.32, 1)';
+                        confessionResponse.style.opacity = '1';
+                        confessionResponse.style.transform = 'translateY(0)';
+                    }, 50);
+                }, 500);
+            });
+
+            // Re-add background sparkles/hearts to new pages
+            function createSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkleContainer.appendChild(sparkle);
+
+                const size = Math.random() * 4 + 2;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.left = `${Math.random() * 100}vw`;
+                sparkle.style.top = `${Math.random() * 100}vh`;
+                sparkle.style.animationDelay = `-${Math.random() * 10}s`;
+                sparkle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                sparkle.style.filter = `blur(${Math.random() * 0.5}px)`;
+                sparkle.addEventListener('animationend', () => sparkle.remove());
+            }
+
+            function createFloatingHeart(type) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '&#10084;&#65039;';
+
+                floatingHeartsContainer.appendChild(heart);
+                heart.style.fontSize = `${Math.random() * 1.5 + 1}em`;
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.bottom = `${Math.random() * 100}vh`;
+                heart.style.animationDuration = `${Math.random() * 8 + 10}s`;
+                heart.style.animationDelay = `-${Math.random() * 10}s`;
+                heart.style.opacity = `${Math.random() * 0.2 + 0.1}`;
+                heart.style.filter = `blur(${Math.random() * 1}px)`;
+                heart.addEventListener('animationend', () => heart.remove());
+            }
+
+            for (let i = 0; i < 50; i++) { createSparkle(); }
+            for (let i = 0; i < 15; i++) { createFloatingHeart('background'); }
         });
     </script>
 </body>
