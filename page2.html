@@ -3,32 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Journey So Far...</title>
+    <title>Our Love Story - Page 2</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="background-overlay"></div>
+    <div class="background-elements">
+        <img src="https://media.tenor.com/P_V_3Vd_d2gAAAAi/milk-and-mocha-hug.gif" alt="Cute bear hug GIF" class="bg-gif gif1">
+        <img src="https://i.pinimg.com/736x/0e/e4/c8/0ee4c84062d2ee39a30ce7c52d2dca65.jpg" alt="Aesthetic background image" class="bg-image img1">
+        <div class="sparkle-container"></div>
+        <div class="floating-hearts-container"></div>
+    </div>
+
     <div class="page-container">
-        <h2>About Me (and Us)</h2>
+        <h2>Our Beautiful Memories</h2>
+        <p class="intro-text">Every moment with you is a cherished memory, a chapter in our unfolding love story. Here are some glimpses into how my heart truly fell for you, a journey of true love, laughter, and unspoken connections.</p>
 
-        <div class="section">
-            <h3>My World</h3>
-            <p>I'm Sarthak, and I'm passionate about a lot of things, from coding complex projects to exploring new places. But above all, I cherish the connections I make and the laughter I share with those closest to me.</p>
-            <img src="https://i.pinimg.com/564x/0f/d0/0d/0fd00d00d0d00d00d00d00d00d00d00d.jpg" alt="About Me Image 1" class="page-image">
-            <p>I love spending my time learning new skills, whether it's a new programming language, or understanding the intricacies of human connection. Every day is an opportunity to grow and to appreciate the beauty around me.</p>
-        </div>
+        <div class="card-grid-container">
+            <div class="love-card card-type-1">
+                <h3>The First Spark</h3>
+                <p>I still remember the day our paths truly crossed. It wasn't just a meeting; it was like the world suddenly gained color. You had this incredible energy, and something in your eyes just clicked with my soul. It was a subtle shift, a quiet realization, but undeniably, a spark was lit.</p>
+                <img src="https://i.pinimg.com/564x/5d/7c/41/5d7c41c3e3e2d5c22c09b7f0c1e8d19e.jpg" alt="First Spark" class="card-image">
+            </div>
 
-        <div class="section">
-            <h3>Our Journey</h3>
-            <p>Remember that time we first met? Or that incredibly memorable moment when we truly connected? Every shared smile, every deep conversation, and every challenge we've faced together has woven a beautiful tapestry of 'us'.</p>
-            <img src="https://i.pinimg.com/564x/1a/2b/3c/1a2b3c4d5e6f8a9e2d3c7d6c5e7b8f9e.jpg" alt="About Me Image 2" class="page-image">
-            <p>From late-night talks to spontaneous adventures, these moments are etched in my memory. You bring out the best in me, and I'm incredibly grateful for every step we've taken side-by-side.</p>
+            <div class="love-card card-type-2">
+                <h3>Unspoken Connections</h3>
+                <p>As time passed, our conversations grew deeper, and I found myself drawn to your laughter, your thoughts, and even the way you faced challenges. It was those quiet moments, the shared glances, and the understanding that passed between us without words, that truly deepened my affection. It felt like we had known each other forever.</p>
+                <img src="https://i.pinimg.com/564x/2c/3e/7b/2c3e7b6c5a0d3e7d5c7f8a9e2d3c7d6c5e7b8f9e.jpg" alt="Unspoken Connections" class="card-image">
+            </div>
+
+            <div class="love-card card-type-3">
+                <h3>The Comfort of You</h3>
+                <p>Falling in love with you wasn't a sudden event, but a gentle, comforting realization. It was in the way you made me feel safe, understood, and completely myself. Your presence became my happy place, a calm amidst any storm. It's a love that feels like coming home, warm and infinitely true.</p>
+                <img src="https://i.pinimg.com/564x/8e/4a/0c/8e4a0c841a2c3e7d5c2dca65f2dca32d.jpg" alt="Comfort" class="card-image">
+            </div>
+
+            <div class="love-card card-type-4">
+                <h3>True Love, Endless Laughter</h3>
+                <p>And now, here we are. My love for you is boundless, a constantly growing, vibrant force. We've shared countless laughs, understood each other's fears, and built something truly special. This is our true love story, filled with joy, respect, and a future I can't wait to build with you.</p>
+                <img src="https://i.pinimg.com/564x/0f/d0/0d/0fd00d00d0d00d0d00d0d00d0d00d00d.jpg" alt="True Love" class="card-image">
+            </div>
         </div>
 
         <div class="nav-links">
-            <a href="page3.html" class="animated-button">The Grand Confession... 🤫</a>
+            <a href="page3.html" class="animated-button">Ready for My Confession? ❤️</a>
         </div>
     </div>
+    <script>
+        // Basic script to re-add background sparkles/hearts to new pages if needed
+        document.addEventListener('DOMContentLoaded', () => {
+            const sparkleContainer = document.querySelector('.sparkle-container');
+            const floatingHeartsContainer = document.querySelector('.floating-hearts-container');
+            
+            function createSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkleContainer.appendChild(sparkle);
+
+                const size = Math.random() * 4 + 2;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.left = `${Math.random() * 100}vw`;
+                sparkle.style.top = `${Math.random() * 100}vh`;
+                sparkle.style.animationDelay = `-${Math.random() * 10}s`; // Stagger animation start
+                sparkle.style.animationDuration = `${Math.random() * 5 + 5}s`; // Vary movement speed
+                sparkle.style.filter = `blur(${Math.random() * 0.5}px)`; // Soft blur
+                sparkle.addEventListener('animationend', () => sparkle.remove()); // Clean up
+            }
+
+            function createFloatingHeart(type) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '&#10084;&#65039;';
+
+                floatingHeartsContainer.appendChild(heart);
+                heart.style.fontSize = `${Math.random() * 1.5 + 1}em`;
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.bottom = `${Math.random() * 100}vh`;
+                heart.style.animationDuration = `${Math.random() * 8 + 10}s`;
+                heart.style.animationDelay = `-${Math.random() * 10}s`;
+                heart.style.opacity = `${Math.random() * 0.2 + 0.1}`;
+                heart.style.filter = `blur(${Math.random() * 1}px)`;
+                heart.addEventListener('animationend', () => heart.remove());
+            }
+
+            for (let i = 0; i < 50; i++) { createSparkle(); }
+            for (let i = 0; i < 15; i++) { createFloatingHeart('background'); }
+        });
+    </script>
 </body>
 </html>
