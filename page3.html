@@ -6,43 +6,22 @@
     <title>My Confession</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF6EB4' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E" type="image/svg+xml">
 </head>
 <body>
-    <div class="background-overlay"></div>
-    <div class="background-elements">
-        <img src="https://media.giphy.com/media/v1.GIF/media/YRtLgs5lM1PCHP2B2g/giphy.gif" alt="Hugging Bears" class="bg-gif gif1">
-        <img src="https://i.pinimg.com/564x/0f/f2/87/0ff287c80520a233b8b60a22f30b925b.jpg" alt="Aesthetic Background" class="bg-image img1">
-    </div>
+    <div class="background-wave"></div>
+    <div class="background-stars"></div>
+    <div class="background-particles"></div>
 
-    <div class="page-container">
-        <h2 id="confession-question">My Dearest Reechita,</h2>
-        
-        <p class="response-text" id="confession-text-content">
-            From the moment I met you, my world found its missing piece. Every day with you is a blessing, a journey filled with laughter, understanding, and an endless stream of pure, unconditional love. You inspire me, you challenge me, and most importantly, you make me a better person just by being you. You are my sunshine, my calm, and my greatest adventure. Thank you for simply existing.
-        </p>
-
-        <p class="response-text" id="confession-acceptance-question">
-            Will you accept my confession?
-        </p>
-
-        <div class="buttons-container">
-            <div class="button-wrapper">
-                <button class="action-button" id="confessionYesBtn">
-                    <span class="icon">&#10084;&#65039;</span>
-                </button>
-                <span class="button-label">Yes!</span>
-            </div>
-            
-            <div class="button-wrapper">
-                <button class="action-button" id="confessionNoBtn">
-                    <span class="icon">&#128546;</span>
-                </button>
-                <span class="button-label">No</span>
-                <span class="no-prompt" id="confessionNoPrompt"></span>
-            </div>
+    <main id="confession-container" class="container active">
+        <h1 class="fade-in-up">My Heart's True Confession</h1>
+        <p class="fade-in-up delay-1">Reechita, every moment with you is a treasure. You've brought so much joy and light into my life. My feelings for you have grown stronger with each passing day, and I can't imagine my life without you by my side.</p>
+        <p class="fade-in-up delay-2">You are kind, beautiful, intelligent, and everything I could ever wish for. Being with you feels like home, and my heart skips a beat every time I see your smile.</p>
+        <h2 class="fade-in-up delay-3 question2">So, Reechita, will you be mine?</h2>
+        <div class="button-container">
+            <button id="confessionYesBtn" class="btn yes-btn fade-in-up delay-4">Yes, I will!</button>
+            <button id="confessionNoBtn" class="btn no-btn fade-in-up delay-5">No, not really!</button>
         </div>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
