@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
+    const noPrompt = document.createElement('span'); // Create prompt element
+    noPrompt.classList.add('no-prompt');
+    noBtn.appendChild(noPrompt); // Append to noBtn
+    
     const responseContent = document.getElementById('response-content');
     const happyGif = document.getElementById('happyGif');
     const greetingText = document.getElementById('greetingText');
@@ -80,44 +84,51 @@ document.addEventListener('DOMContentLoaded', () => {
         mainContent.style.transform = 'translateY(-20px)';
         mainContent.addEventListener('transitionend', () => {
             mainContent.classList.add('hidden');
-            responseContent.classList.remove('hidden');
-            happyGif.classList.remove('hidden'); // Show the happy GIF
-            responseContent.style.opacity = '0';
-            responseContent.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                responseContent.style.transition = 'opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
-                responseContent.style.opacity = '1';
-                responseContent.style.transform = 'translateY(0)';
-            }, 50);
+            // Redirect to the new intermediate page
+            window.location.href = 'page_yes_response.html';
         }, { once: true });
     });
 
     // Enhanced No button movement logic
-    let moveCount = 0;
-    const maxMoves = 20; // Increased limit for more evasion
+    let noMoveCount = 0;
+    const maxNoMoves = 15; // Increased limit for more evasion
+    const noPrompts = [
+        "Are you absolutely sure?",
+        "Think again! 😉",
+        "Don't you want to make my day?",
+        "But... but why not?",
+        "Is that your final answer? 🤔",
+        "No is not an option! (Just kidding... mostly)", // Easter egg 1
+        "My heart might break a little! 💔",
+        "Consider the possibilities! ✨"
+    ];
+    let currentPromptIndex = 0;
 
     // Set initial position of No button relative to the container
     function setNoButtonInitialPosition() {
-        // Only apply complex positioning on larger screens where there's enough space
-        if (window.innerWidth > 768) {
-            const buttonsContainer = mainContent.querySelector('.buttons-container');
-            if (!buttonsContainer) return;
+        const buttonsContainer = mainContent.querySelector('.buttons-container');
+        if (!buttonsContainer) return;
 
-            // Using offsetLeft/Top relative to its parent for initial positioning
-            // Place it to the right of Yes button by default
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${yesBtn.offsetLeft + yesBtn.offsetWidth + 100}px`; // Adjust 100px for gap
+        // Position it to the right of Yes button by default,
+        // using relative positioning for initial placement on all screens
+        noBtn.style.position = 'absolute';
+        // Calculate initial offset based on container for responsive positioning
+        if (window.innerWidth > 768) {
+            noBtn.style.left = `${yesBtn.offsetLeft + yesBtn.offsetWidth + 100}px`; // Desktop gap
             noBtn.style.top = `${yesBtn.offsetTop}px`;
-            noBtn.style.transform = 'translateY(0) scale(1)'; // Reset transform for initial setup
         } else {
-            // On smaller screens, revert to static positioning (flexbox handles layout)
-            noBtn.style.position = 'static';
-            noBtn.style.transform = 'none';
-            noBtn.style.left = 'unset';
-            noBtn.style.top = 'unset';
+            // For smaller screens, try to place it near the right edge of the container
+            const containerRect = buttonsContainer.getBoundingClientRect();
+            const buttonRect = noBtn.getBoundingClientRect(); // Get current button size
+            noBtn.style.left = `${containerRect.width - buttonRect.width - 20}px`; // 20px from right edge
+            noBtn.style.top = `${yesBtn.offsetTop + 20}px`; // Slightly below yes button on smaller screens or similar row
         }
-        moveCount = 0; // Reset move count whenever position is re-initialized
+        noBtn.style.transform = 'translateY(0) scale(1)'; // Reset transform for initial setup
+        noMoveCount = 0; // Reset move count whenever position is re-initialized
         noBtn.classList.remove('float-animation'); // Ensure no lingering animation class
+        noPrompt.classList.remove('show'); // Hide prompt on reset
+        noPrompt.textContent = noPrompts[0]; // Reset prompt text
+        currentPromptIndex = 0;
     }
 
     // Call on load and resize to maintain responsiveness
@@ -125,23 +136,18 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', setNoButtonInitialPosition);
 
     noBtn.addEventListener('mouseover', handleNoButtonInteraction);
-    noBtn.addEventListener('click', handleNoButtonInteraction);
+    noBtn.addEventListener('click', handleNoButtonInteraction); // Also trigger on click for mobile
 
     function handleNoButtonInteraction(event) {
-        // Only move if not on small screens where it's static
-        if (window.innerWidth <= 768) {
-            return;
-        }
-
-        if (moveCount >= maxMoves) {
-            // After max moves, make it static and change cursor
-            noBtn.style.position = 'static';
+        if (noMoveCount >= maxNoMoves) {
+            noBtn.style.position = 'static'; // Make it static after max moves
             noBtn.style.transform = 'none';
             noBtn.classList.remove('float-animation');
             noBtn.style.cursor = 'not-allowed'; // Indicate it's no longer interactive
             noBtn.removeEventListener('mouseover', handleNoButtonInteraction);
             noBtn.removeEventListener('click', handleNoButtonInteraction);
-            console.log("No button is now static after max moves.");
+            noPrompt.textContent = "Okay, I give up... for now!"; // Easter egg 2
+            noPrompt.classList.add('show');
             return;
         }
 
@@ -155,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let newX, newY;
         let attempts = 0;
         const padding = 20; // Keep button away from container edges
-        const minDistanceToYes = 200; // Minimum distance from Yes button center
+        const minDistanceToYes = 150; // Minimum distance from Yes button center (reduced for mobile)
 
         // Calculate a valid random position within the container
         do {
@@ -176,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             attempts++;
-            if (attempts > 100) { // Safety break to prevent infinite loops
+            if (attempts > 150) { // Safety break to prevent infinite loops, increased attempts
                 console.warn("Could not find a valid new position for No button within container, relaxing constraints.");
                 // If too many attempts, just pick a random spot within the container, might be closer to Yes
                 newX = Math.random() * (containerRect.width - buttonRect.width);
@@ -193,10 +199,18 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.top = `${newY}px`;
 
         noBtn.classList.add('float-animation');
-        moveCount++;
+        noMoveCount++;
+
+        // Show and cycle prompt
+        noPrompt.textContent = noPrompts[currentPromptIndex];
+        noPrompt.classList.add('show');
+        currentPromptIndex = (currentPromptIndex + 1) % noPrompts.length;
 
         setTimeout(() => {
             noBtn.classList.remove('float-animation');
+            if (noMoveCount < maxNoMoves) { // Only hide if more moves are possible
+                noPrompt.classList.remove('show');
+            }
         }, 600); // Duration matches float-animation in CSS
     }
 
@@ -214,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sparkle.style.animationDelay = `-${Math.random() * 10}s`; // Stagger animation start
         sparkle.style.animationDuration = `${Math.random() * 5 + 5}s`; // Vary movement speed
         sparkle.style.filter = `blur(${Math.random() * 0.5}px)`; // Soft blur
+        sparkle.addEventListener('animationend', () => sparkle.remove()); // Remove after animation
     }
 
     function createFloatingHeart(type) { // 'background' or 'foreground'
@@ -225,12 +240,13 @@ document.addEventListener('DOMContentLoaded', () => {
             floatingHeartsContainer.appendChild(heart);
             heart.style.fontSize = `${Math.random() * 1.5 + 1}em`;
             heart.style.left = `${Math.random() * 100}vw`;
-            heart.style.bottom = `${Math.random() * 100}vh`; // Start from anywhere
+            heart.style.bottom = `-${Math.random() * 20 + 50}px`; // Start off-screen bottom
             heart.style.animationDuration = `${Math.random() * 8 + 10}s`; // Slower
             heart.style.animationDelay = `-${Math.random() * 10}s`; // Stagger
             heart.style.opacity = `${Math.random() * 0.2 + 0.1}`; // Very subtle
             heart.style.filter = `blur(${Math.random() * 1}px)`; // More blur for background
-        } else { // foreground
+            // No remove() listener, as it's an infinite loop now via CSS keyframes
+        } else { // foreground (e.g. on click, these can still fade out)
             body.appendChild(heart);
             heart.style.fontSize = `${Math.random() * 2.5 + 1.5}em`;
             heart.style.left = `${event ? event.clientX : Math.random() * window.innerWidth}px`; // Start near click or random
@@ -239,12 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
             heart.style.animationDelay = `0s`;
             heart.style.opacity = `0.8`;
             heart.style.filter = `blur(0px)`;
+            heart.addEventListener('animationend', () => { heart.remove(); });
         }
-
-        // Remove after animation
-        heart.addEventListener('animationend', () => {
-            heart.remove();
-        });
     }
 
     // Function to reset the page to the introduction
@@ -261,6 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.addEventListener('mouseover', handleNoButtonInteraction);
         noBtn.addEventListener('click', handleNoButtonInteraction);
         noBtn.style.cursor = 'pointer'; // Restore default cursor
-        moveCount = 0; // Reset move counter
+        noMoveCount = 0; // Reset move counter
     };
 });
