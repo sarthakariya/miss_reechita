@@ -6,8 +6,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const noBtn = document.getElementById('noBtn');
     const responseContent = document.getElementById('response-content');
     const happyGif = document.getElementById('happyGif');
+    const greetingText = document.getElementById('greetingText');
+    const timeGreeting = document.getElementById('timeGreeting');
+    const introElaborateText = document.getElementById('introElaborateText');
     const questionElement = document.getElementById('question');
     const body = document.body;
+
+    // Function to set time-based greeting
+    function setTimeGreeting() {
+        const date = new Date();
+        const hours = date.getHours();
+        let greeting = "";
+
+        if (hours < 12) {
+            greeting = "Good morning!";
+        } else if (hours < 18) {
+            greeting = "Good afternoon!";
+        } else {
+            greeting = "Good evening!";
+        }
+        timeGreeting.textContent = greeting;
+    }
+
+    // Call time-based greeting on load
+    setTimeGreeting();
 
     // Initial fade-in for the intro container
     introContainer.style.opacity = '0';
@@ -19,17 +41,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     startJourneyBtn.addEventListener('click', () => {
-        introContainer.classList.add('hidden');
-        mainContent.classList.remove('hidden');
-        mainContent.style.opacity = '0';
-        mainContent.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-            mainContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
-            mainContent.style.opacity = '1';
-            mainContent.style.transform = 'translateY(0)';
-        }, 50);
+        introContainer.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        introContainer.style.opacity = '0';
+        introContainer.style.transform = 'translateY(-20px)';
+        introContainer.addEventListener('transitionend', () => {
+            introContainer.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            mainContent.style.opacity = '0';
+            mainContent.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                mainContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                mainContent.style.opacity = '1';
+                mainContent.style.transform = 'translateY(0)';
+            }, 50);
+        }, { once: true });
 
-        // Optional: Trigger background particles/hearts for initial immersion
+        // Create initial floating hearts for immersive feel
         setTimeout(() => {
             for (let i = 0; i < 40; i++) {
                 createFloatingHeart();
@@ -38,75 +65,112 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     yesBtn.addEventListener('click', () => {
-        mainContent.classList.add('hidden');
-        responseContent.classList.remove('hidden');
-        happyGif.classList.remove('hidden'); // Show the happy GIF
-        responseContent.style.opacity = '0';
-        responseContent.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-            responseContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
-            responseContent.style.opacity = '1';
-            responseContent.style.transform = 'translateY(0)';
-        }, 50);
+        mainContent.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        mainContent.style.opacity = '0';
+        mainContent.style.transform = 'translateY(-20px)';
+        mainContent.addEventListener('transitionend', () => {
+            mainContent.classList.add('hidden');
+            responseContent.classList.remove('hidden');
+            happyGif.classList.remove('hidden'); // Show the happy GIF
+            responseContent.style.opacity = '0';
+            responseContent.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                responseContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                responseContent.style.opacity = '1';
+                responseContent.style.transform = 'translateY(0)';
+            }, 50);
+        }, { once: true });
     });
 
     // Enhanced No button movement logic
     let moveCount = 0;
-    const maxMoves = 10; // Limit how many times it tries to evade before becoming static
+    const maxMoves = 15; // Increased limit for more evasion
 
-    noBtn.addEventListener('mouseover', moveNoButton);
-    noBtn.addEventListener('click', moveNoButton); // Also move on click to prevent accidental click
+    // Set initial position of No button relative to the container
+    function setNoButtonInitialPosition() {
+        if (window.innerWidth > 768) { // Only apply complex positioning on larger screens
+            const buttonsContainer = mainContent.querySelector('.buttons-container');
+            if (!buttonsContainer) return;
 
-    function moveNoButton(event) {
+            const yesBtnRect = yesBtn.getBoundingClientRect();
+            const containerRect = buttonsContainer.getBoundingClientRect();
+
+            // Position No button to the right of Yes button, relative to buttonsContainer
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${yesBtnRect.right - containerRect.left + 80}px`; // 80px gap
+            noBtn.style.top = `${yesBtnRect.top - containerRect.top}px`;
+            noBtn.style.transform = 'translateY(0)'; // Reset transform for initial setup
+        } else {
+            // On smaller screens, revert to static positioning (flexbox handles layout)
+            noBtn.style.position = 'static';
+            noBtn.style.transform = 'none';
+            noBtn.style.left = 'unset';
+            noBtn.style.top = 'unset';
+        }
+        moveCount = 0; // Reset move count whenever position is re-initialized
+    }
+
+    // Call on load and resize
+    window.addEventListener('load', setNoButtonInitialPosition);
+    window.addEventListener('resize', setNoButtonInitialPosition);
+
+    noBtn.addEventListener('mouseover', handleNoButtonInteraction);
+    noBtn.addEventListener('click', handleNoButtonInteraction);
+
+    function handleNoButtonInteraction(event) {
+        // Only move if not on small screens
+        if (window.innerWidth <= 768) {
+            console.log("No button is static on small screens.");
+            return;
+        }
+
         if (moveCount >= maxMoves) {
-            // After max moves, make it less evasive or stop
-            noBtn.style.position = 'static'; // Or revert to original position
+            // After max moves, make it static and change cursor
+            noBtn.style.position = 'static';
             noBtn.style.transform = 'none';
             noBtn.classList.remove('float-animation');
-            noBtn.removeEventListener('mouseover', moveNoButton);
-            noBtn.removeEventListener('click', moveNoButton);
+            noBtn.style.cursor = 'not-allowed'; // Indicate it's no longer interactive
+            noBtn.removeEventListener('mouseover', handleNoButtonInteraction);
+            noBtn.removeEventListener('click', handleNoButtonInteraction);
             console.log("No button is now static.");
             return;
         }
 
-        const container = mainContent.querySelector('.buttons-container');
-        if (!container) return;
+        const buttonsContainer = mainContent.querySelector('.buttons-container');
+        if (!buttonsContainer) return;
 
-        const containerRect = container.getBoundingClientRect();
+        const containerRect = buttonsContainer.getBoundingClientRect();
         const buttonRect = noBtn.getBoundingClientRect();
 
         let newX, newY;
         let attempts = 0;
-        const padding = 20; // Keep button away from container edges
+        const padding = 20;
 
-        // Try to find a new position that is inside the container
+        // Calculate a valid random position within the container
         do {
             newX = Math.random() * (containerRect.width - buttonRect.width - padding * 2) + padding;
             newY = Math.random() * (containerRect.height - buttonRect.height - padding * 2) + padding;
             attempts++;
-            if (attempts > 50) { // Prevent infinite loop if container is too small
+            if (attempts > 50) { // Safety break
                 console.warn("Could not find a valid new position for No button within container.");
                 break;
             }
         } while (
             newX < 0 || newX + buttonRect.width > containerRect.width ||
-            newY < 0 || newY + buttonRect.height > containerRect.height
+            newY < 0 || newY + buttonRect.height > containerRect.height ||
+            (Math.abs(newX - (yesBtn.offsetLeft + yesBtn.offsetWidth / 2)) < 150 && Math.abs(newY - (yesBtn.offsetTop + yesBtn.offsetHeight / 2)) < 150) // Avoid overlapping Yes button
         );
 
-        // Apply relative positioning to the button
-        noBtn.style.position = 'absolute'; // Ensure absolute positioning relative to its parent .buttons-container
         noBtn.style.left = `${newX}px`;
         noBtn.style.top = `${newY}px`;
 
-        // Add a floating animation class for visual flair
         noBtn.classList.add('float-animation');
         moveCount++;
         console.log(`No button moved. Move count: ${moveCount}`);
 
-        // Optional: Remove animation class after a short delay to reset for next move
         setTimeout(() => {
             noBtn.classList.remove('float-animation');
-        }, 1000); // Duration matches float-animation in CSS
+        }, 800); // Duration matches float-animation in CSS
     }
 
     // --- Helper functions for dynamic animations ---
@@ -133,13 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
         mainContent.classList.add('hidden');
 
         // Reset button position and re-enable listeners
-        noBtn.style.position = 'static'; // Reset to default flow
-        noBtn.style.transform = 'none';
-        noBtn.classList.remove('float-animation');
-        noBtn.removeEventListener('mouseover', moveNoButton);
-        noBtn.removeEventListener('click', moveNoButton); // Remove old listeners
-        noBtn.addEventListener('mouseover', moveNoButton); // Re-add listeners
-        noBtn.addEventListener('click', moveNoButton);
+        setNoButtonInitialPosition(); // Reset to calculated initial position
+        noBtn.removeEventListener('mouseover', handleNoButtonInteraction);
+        noBtn.removeEventListener('click', handleNoButtonInteraction);
+        noBtn.addEventListener('mouseover', handleNoButtonInteraction);
+        noBtn.addEventListener('click', handleNoButtonInteraction);
+        noBtn.style.cursor = 'pointer'; // Restore default cursor
         moveCount = 0; // Reset move counter
     };
 });
