@@ -9,8 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const greetingText = document.getElementById('greetingText');
     const timeGreeting = document.getElementById('timeGreeting');
     const introElaborateText = document.getElementById('introElaborateText');
-    const questionElement = document.getElementById('question');
     const body = document.body;
+    const sparkleContainer = document.querySelector('.sparkle-container');
+    const floatingHeartsContainer = document.querySelector('.floating-hearts-container');
 
     // Function to set time-based greeting
     function setTimeGreeting() {
@@ -35,10 +36,19 @@ document.addEventListener('DOMContentLoaded', () => {
     introContainer.style.opacity = '0';
     introContainer.style.transform = 'translateY(20px)';
     setTimeout(() => {
-        introContainer.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+        introContainer.style.transition = 'opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
         introContainer.style.opacity = '1';
         introContainer.style.transform = 'translateY(0)';
     }, 100);
+
+    // Create persistent background sparkles
+    for (let i = 0; i < 50; i++) { // More sparkles
+        createSparkle();
+    }
+    // Create persistent floating hearts
+    for (let i = 0; i < 15; i++) { // Some background hearts
+        createFloatingHeart('background');
+    }
 
     startJourneyBtn.addEventListener('click', () => {
         introContainer.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
@@ -50,16 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
             mainContent.style.opacity = '0';
             mainContent.style.transform = 'translateY(20px)';
             setTimeout(() => {
-                mainContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                mainContent.style.transition = 'opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
                 mainContent.style.opacity = '1';
                 mainContent.style.transform = 'translateY(0)';
             }, 50);
         }, { once: true });
 
-        // Create initial floating hearts for immersive feel
+        // Optional: Trigger more floating hearts on main content load
         setTimeout(() => {
-            for (let i = 0; i < 40; i++) {
-                createFloatingHeart();
+            for (let i = 0; i < 20; i++) {
+                createFloatingHeart('foreground');
             }
         }, 800);
     });
@@ -75,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             responseContent.style.opacity = '0';
             responseContent.style.transform = 'translateY(20px)';
             setTimeout(() => {
-                responseContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                responseContent.style.transition = 'opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
                 responseContent.style.opacity = '1';
                 responseContent.style.transform = 'translateY(0)';
             }, 50);
@@ -84,22 +94,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Enhanced No button movement logic
     let moveCount = 0;
-    const maxMoves = 15; // Increased limit for more evasion
+    const maxMoves = 20; // Increased limit for more evasion
 
     // Set initial position of No button relative to the container
     function setNoButtonInitialPosition() {
-        if (window.innerWidth > 768) { // Only apply complex positioning on larger screens
+        // Only apply complex positioning on larger screens where there's enough space
+        if (window.innerWidth > 768) {
             const buttonsContainer = mainContent.querySelector('.buttons-container');
             if (!buttonsContainer) return;
 
-            const yesBtnRect = yesBtn.getBoundingClientRect();
-            const containerRect = buttonsContainer.getBoundingClientRect();
-
-            // Position No button to the right of Yes button, relative to buttonsContainer
+            // Using offsetLeft/Top relative to its parent for initial positioning
+            // Place it to the right of Yes button by default
             noBtn.style.position = 'absolute';
-            noBtn.style.left = `${yesBtnRect.right - containerRect.left + 80}px`; // 80px gap
-            noBtn.style.top = `${yesBtnRect.top - containerRect.top}px`;
-            noBtn.style.transform = 'translateY(0)'; // Reset transform for initial setup
+            noBtn.style.left = `${yesBtn.offsetLeft + yesBtn.offsetWidth + 100}px`; // Adjust 100px for gap
+            noBtn.style.top = `${yesBtn.offsetTop}px`;
+            noBtn.style.transform = 'translateY(0) scale(1)'; // Reset transform for initial setup
         } else {
             // On smaller screens, revert to static positioning (flexbox handles layout)
             noBtn.style.position = 'static';
@@ -108,9 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
             noBtn.style.top = 'unset';
         }
         moveCount = 0; // Reset move count whenever position is re-initialized
+        noBtn.classList.remove('float-animation'); // Ensure no lingering animation class
     }
 
-    // Call on load and resize
+    // Call on load and resize to maintain responsiveness
     window.addEventListener('load', setNoButtonInitialPosition);
     window.addEventListener('resize', setNoButtonInitialPosition);
 
@@ -118,9 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
     noBtn.addEventListener('click', handleNoButtonInteraction);
 
     function handleNoButtonInteraction(event) {
-        // Only move if not on small screens
+        // Only move if not on small screens where it's static
         if (window.innerWidth <= 768) {
-            console.log("No button is static on small screens.");
             return;
         }
 
@@ -132,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             noBtn.style.cursor = 'not-allowed'; // Indicate it's no longer interactive
             noBtn.removeEventListener('mouseover', handleNoButtonInteraction);
             noBtn.removeEventListener('click', handleNoButtonInteraction);
-            console.log("No button is now static.");
+            console.log("No button is now static after max moves.");
             return;
         }
 
@@ -141,24 +150,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const containerRect = buttonsContainer.getBoundingClientRect();
         const buttonRect = noBtn.getBoundingClientRect();
+        const yesBtnRect = yesBtn.getBoundingClientRect();
 
         let newX, newY;
         let attempts = 0;
-        const padding = 20;
+        const padding = 20; // Keep button away from container edges
+        const minDistanceToYes = 200; // Minimum distance from Yes button center
 
         // Calculate a valid random position within the container
         do {
             newX = Math.random() * (containerRect.width - buttonRect.width - padding * 2) + padding;
             newY = Math.random() * (containerRect.height - buttonRect.height - padding * 2) + padding;
+            
+            // Calculate center of new No button position relative to container
+            const newNoCenterX = newX + buttonRect.width / 2;
+            const newNoCenterY = newY + buttonRect.height / 2;
+
+            // Calculate center of Yes button relative to container
+            const yesCenterX = yesBtn.offsetLeft + yesBtn.offsetWidth / 2;
+            const yesCenterY = yesBtn.offsetTop + yesBtn.offsetHeight / 2;
+
+            const distance = Math.sqrt(
+                Math.pow(newNoCenterX - yesCenterX, 2) +
+                Math.pow(newNoCenterY - yesCenterY, 2)
+            );
+
             attempts++;
-            if (attempts > 50) { // Safety break
-                console.warn("Could not find a valid new position for No button within container.");
+            if (attempts > 100) { // Safety break to prevent infinite loops
+                console.warn("Could not find a valid new position for No button within container, relaxing constraints.");
+                // If too many attempts, just pick a random spot within the container, might be closer to Yes
+                newX = Math.random() * (containerRect.width - buttonRect.width);
+                newY = Math.random() * (containerRect.height - buttonRect.height);
                 break;
             }
         } while (
             newX < 0 || newX + buttonRect.width > containerRect.width ||
             newY < 0 || newY + buttonRect.height > containerRect.height ||
-            (Math.abs(newX - (yesBtn.offsetLeft + yesBtn.offsetWidth / 2)) < 150 && Math.abs(newY - (yesBtn.offsetTop + yesBtn.offsetHeight / 2)) < 150) // Avoid overlapping Yes button
+            distance < minDistanceToYes // Ensure it's not too close to the Yes button
         );
 
         noBtn.style.left = `${newX}px`;
@@ -166,27 +194,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
         noBtn.classList.add('float-animation');
         moveCount++;
-        console.log(`No button moved. Move count: ${moveCount}`);
 
         setTimeout(() => {
             noBtn.classList.remove('float-animation');
-        }, 800); // Duration matches float-animation in CSS
+        }, 600); // Duration matches float-animation in CSS
     }
 
     // --- Helper functions for dynamic animations ---
-    function createFloatingHeart() {
+    function createSparkle() {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkleContainer.appendChild(sparkle);
+
+        const size = Math.random() * 4 + 2;
+        sparkle.style.width = `${size}px`;
+        sparkle.style.height = `${size}px`;
+        sparkle.style.left = `${Math.random() * 100}vw`;
+        sparkle.style.top = `${Math.random() * 100}vh`;
+        sparkle.style.animationDelay = `-${Math.random() * 10}s`; // Stagger animation start
+        sparkle.style.animationDuration = `${Math.random() * 5 + 5}s`; // Vary movement speed
+        sparkle.style.filter = `blur(${Math.random() * 0.5}px)`; // Soft blur
+    }
+
+    function createFloatingHeart(type) { // 'background' or 'foreground'
         const heart = document.createElement('div');
         heart.classList.add('floating-heart');
-        body.appendChild(heart);
+        heart.innerHTML = '&#10084;&#65039;'; // Red heart emoji
 
-        const size = Math.random() * 30 + 20;
-        heart.style.width = `${size}px`;
-        heart.style.height = `${size}px`;
-        heart.style.left = `${Math.random() * 100}vw`;
-        heart.style.bottom = `-50px`;
-        heart.style.animationDuration = `${Math.random() * 4 + 4}s`;
-        heart.style.animationDelay = `-${Math.random() * 4}s`;
-        heart.style.opacity = 0.8;
+        if (type === 'background') {
+            floatingHeartsContainer.appendChild(heart);
+            heart.style.fontSize = `${Math.random() * 1.5 + 1}em`;
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.bottom = `${Math.random() * 100}vh`; // Start from anywhere
+            heart.style.animationDuration = `${Math.random() * 8 + 10}s`; // Slower
+            heart.style.animationDelay = `-${Math.random() * 10}s`; // Stagger
+            heart.style.opacity = `${Math.random() * 0.2 + 0.1}`; // Very subtle
+            heart.style.filter = `blur(${Math.random() * 1}px)`; // More blur for background
+        } else { // foreground
+            body.appendChild(heart);
+            heart.style.fontSize = `${Math.random() * 2.5 + 1.5}em`;
+            heart.style.left = `${event ? event.clientX : Math.random() * window.innerWidth}px`; // Start near click or random
+            heart.style.top = `${event ? event.clientY : Math.random() * window.innerHeight}px`;
+            heart.style.animationDuration = `${Math.random() * 4 + 4}s`;
+            heart.style.animationDelay = `0s`;
+            heart.style.opacity = `0.8`;
+            heart.style.filter = `blur(0px)`;
+        }
+
+        // Remove after animation
+        heart.addEventListener('animationend', () => {
+            heart.remove();
+        });
     }
 
     // Function to reset the page to the introduction
