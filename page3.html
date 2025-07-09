@@ -3,242 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Confession to You</title>
+    <title>My Confession</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF6EB4' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E" type="image/svg+xml">
 </head>
 <body>
     <div class="background-overlay"></div>
     <div class="background-elements">
-        <img src="https://media.tenor.com/P_V_3Vd_d2gAAAAi/milk-and-mocha-hug.gif" alt="Cute bear hug GIF" class="bg-gif gif1">
-        <img src="https://i.pinimg.com/736x/0e/e4/c8/0ee4c84062d2ee39a30ce7c52d2dca65.jpg" alt="Aesthetic background image" class="bg-image img1">
-        <div class="sparkle-container"></div>
-        <div class="floating-hearts-container"></div>
+        <img src="https://media.giphy.com/media/v1.GIF/media/YRtLgs5lM1PCHP2B2g/giphy.gif" alt="Hugging Bears" class="bg-gif gif1">
+        <img src="https://i.pinimg.com/564x/0f/f2/87/0ff287c80520a233b8b60a22f30b925b.jpg" alt="Aesthetic Background" class="bg-image img1">
     </div>
 
-    <div class="page-container" id="confession-page-container">
-        <h2>A Moment of Truth</h2>
-
-        <p id="confession-question">Reechita, my heart has swelled with emotions for you, and there's a truth I simply must share. Will you grace me with your attention as I bare my soul?</p>
+    <div class="page-container">
+        <h2 id="confession-question">My Dearest Reechita,</h2>
         
-        <div class="buttons-container" id="page3-main-interaction">
-            <div class="button-wrapper">
-                <button id="confessionYesBtn" class="animated-button action-button">
-                    <span class="icon">&#128150;</span>
-                </button>
-                <div class="button-label">Yes, Tell Me!</div>
-            </div>
-            <div class="button-wrapper">
-                <button id="confessionNoBtn" class="animated-button action-button no-button">
-                    <span class="icon">&#128532;</span>
-                    <span class="no-prompt">Are you absolutely sure?</span>
-                </button>
-                <div class="button-label">Not Now</div>
-            </div>
-        </div>
+        <p class="response-text" id="confession-text-content">
+            From the moment I met you, my world found its missing piece. Every day with you is a blessing, a journey filled with laughter, understanding, and an endless stream of pure, unconditional love. You inspire me, you challenge me, and most importantly, you make me a better person just by being you. You are my sunshine, my calm, and my greatest adventure. Thank you for simply existing.
+        </p>
 
-        <p id="confession-response" class="response-text hidden">My dearest Reechita, from the moment I truly saw you, my world shifted. Every laugh, every shared glance, every quiet moment has woven itself into the fabric of my being. You inspire me, challenge me, and make me feel a depth of happiness I never knew was possible. With all my heart, I love you. You are my sunshine, my moon, and all my stars. Every moment with you is a treasure, and I wish for many more. You complete me. Always and forever, Sarthak.</p>
+        <p class="response-text" id="confession-acceptance-question">
+            Will you accept my confession?
+        </p>
 
-        <div class="nav-links">
-            <a href="index.html" class="animated-button back-home-link">Return to the Beginning ✨</a>
+        <div class="buttons-container">
+            <div class="button-wrapper">
+                <button class="action-button" id="confessionYesBtn">
+                    <span class="icon">&#10084;&#65039;</span>
+                </button>
+                <span class="button-label">Yes!</span>
+            </div>
+            
+            <div class="button-wrapper">
+                <button class="action-button" id="confessionNoBtn">
+                    <span class="icon">&#128546;</span>
+                </button>
+                <span class="button-label">No</span>
+                <span class="no-prompt" id="confessionNoPrompt"></span>
+            </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const confessionYesBtn = document.getElementById('confessionYesBtn');
-            const confessionNoBtn = document.getElementById('confessionNoBtn');
-            const confessionNoPrompt = confessionNoBtn.querySelector('.no-prompt'); // Get the prompt element
-            const confessionResponse = document.getElementById('confession-response');
-            const confessionQuestion = document.getElementById('confession-question');
-            const buttonsContainer = document.getElementById('page3-main-interaction');
-            const sparkleContainer = document.querySelector('.sparkle-container');
-            const floatingHeartsContainer = document.querySelector('.floating-hearts-container');
-            const pageContainer = document.getElementById('confession-page-container');
-
-            // Initial fade-in for the container
-            pageContainer.style.opacity = '0';
-            pageContainer.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                pageContainer.style.transition = 'opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
-                pageContainer.style.opacity = '1';
-                pageContainer.style.transform = 'translateY(0)';
-            }, 100);
-
-            let moveConfessionNoCount = 0;
-            const maxConfessionMoves = 15; // Increased attempts for evasion
-            const confessionNoPrompts = [
-                "Are you absolutely sure?",
-                "This is important!",
-                "Don't leave me hanging! 🥺",
-                "But I really want to tell you...",
-                "You might regret it! 😉",
-                "It's a secret for your ears only! 🤫", // Easter egg
-                "Please don't say no! 😔"
-            ];
-            let currentConfessionPromptIndex = 0;
-
-            function setConfessionNoButtonInitialPosition() {
-                if (buttonsContainer) {
-                    confessionNoBtn.style.position = 'absolute';
-                    if (window.innerWidth > 768) {
-                        confessionNoBtn.style.left = `${confessionYesBtn.offsetLeft + confessionYesBtn.offsetWidth + 100}px`;
-                        confessionNoBtn.style.top = `${confessionYesBtn.offsetTop}px`;
-                    } else {
-                        const containerRect = buttonsContainer.getBoundingClientRect();
-                        const buttonRect = confessionNoBtn.getBoundingClientRect();
-                        confessionNoBtn.style.left = `${containerRect.width - buttonRect.width - 20}px`;
-                        confessionNoBtn.style.top = `${confessionYesBtn.offsetTop + 20}px`;
-                    }
-                    confessionNoBtn.style.transform = 'translateY(0) scale(1)';
-                }
-                moveConfessionNoCount = 0;
-                confessionNoBtn.classList.remove('float-animation');
-                confessionNoPrompt.classList.remove('show');
-                confessionNoPrompt.textContent = confessionNoPrompts[0];
-                currentConfessionPromptIndex = 0;
-            }
-            window.addEventListener('load', setConfessionNoButtonInitialPosition);
-            window.addEventListener('resize', setConfessionNoButtonInitialPosition);
-
-            function handleConfessionNoButtonInteraction() {
-                if (moveConfessionNoCount >= maxConfessionMoves) {
-                    confessionNoBtn.style.position = 'static';
-                    confessionNoBtn.style.transform = 'none';
-                    confessionNoBtn.classList.remove('float-animation');
-                    confessionNoBtn.style.cursor = 'not-allowed';
-                    confessionNoBtn.removeEventListener('mouseover', handleConfessionNoButtonInteraction);
-                    confessionNoBtn.removeEventListener('click', handleConfessionNoButtonInteraction);
-                    confessionNoPrompt.textContent = "Alright, maybe another time... 💔"; // Easter egg
-                    confessionNoPrompt.classList.add('show');
-                    return;
-                }
-
-                if (!buttonsContainer) return;
-
-                const containerRect = buttonsContainer.getBoundingClientRect();
-                const buttonRect = confessionNoBtn.getBoundingClientRect();
-                const yesBtnRect = confessionYesBtn.getBoundingClientRect();
-
-                let newX, newY;
-                let attempts = 0;
-                const padding = 20;
-                const minDistanceToYes = 150; // Similar distance as main page
-
-                do {
-                    newX = Math.random() * (containerRect.width - buttonRect.width - padding * 2) + padding;
-                    newY = Math.random() * (containerRect.height - buttonRect.height - padding * 2) + padding;
-
-                    const newNoCenterX = newX + buttonRect.width / 2;
-                    const newNoCenterY = newY + buttonRect.height / 2;
-
-                    const yesCenterX = confessionYesBtn.offsetLeft + confessionYesBtn.offsetWidth / 2;
-                    const yesCenterY = confessionYesBtn.offsetTop + confessionYesBtn.offsetHeight / 2;
-
-                    const distance = Math.sqrt(
-                        Math.pow(newNoCenterX - yesCenterX, 2) +
-                        Math.pow(newNoCenterY - yesCenterY, 2)
-                    );
-
-                    attempts++;
-                    if (attempts > 150) {
-                        newX = Math.random() * (containerRect.width - buttonRect.width);
-                        newY = Math.random() * (containerRect.height - buttonRect.height);
-                        break;
-                    }
-                } while (
-                    newX < 0 || newX + buttonRect.width > containerRect.width ||
-                    newY < 0 || newY + buttonRect.height > containerRect.height ||
-                    distance < minDistanceToYes
-                );
-
-                confessionNoBtn.style.left = `${newX}px`;
-                confessionNoBtn.style.top = `${newY}px`;
-                confessionNoBtn.classList.add('float-animation');
-                moveConfessionNoCount++;
-
-                confessionNoPrompt.textContent = confessionNoPrompts[currentConfessionPromptIndex];
-                confessionNoPrompt.classList.add('show');
-                currentConfessionPromptIndex = (currentConfessionPromptIndex + 1) % confessionNoPrompts.length;
-
-                setTimeout(() => {
-                    confessionNoBtn.classList.remove('float-animation');
-                    if (moveConfessionNoCount < maxConfessionMoves) {
-                        confessionNoPrompt.classList.remove('show');
-                    }
-                }, 600);
-            }
-
-            confessionNoBtn.addEventListener('mouseover', handleConfessionNoButtonInteraction);
-            confessionNoBtn.addEventListener('click', handleConfessionNoButtonInteraction);
-
-            confessionYesBtn.addEventListener('click', () => {
-                confessionQuestion.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-                confessionQuestion.style.opacity = '0';
-                confessionQuestion.style.transform = 'translateY(-20px)';
-
-                const buttons = [confessionNoBtn, confessionYesBtn];
-                buttons.forEach(btn => {
-                    btn.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-                    btn.style.opacity = '0';
-                    btn.style.transform = 'scale(0.5)';
-                    btn.style.pointerEvents = 'none';
-                });
-
-                // Hide the prompt if it's visible
-                confessionNoPrompt.classList.remove('show');
-
-                setTimeout(() => {
-                    confessionQuestion.classList.add('hidden');
-                    buttons.forEach(btn => btn.classList.add('hidden'));
-
-                    confessionResponse.classList.remove('hidden');
-                    confessionResponse.style.opacity = '0';
-                    confessionResponse.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        confessionResponse.style.transition = 'opacity 1.5s cubic-bezier(0.23, 1, 0.32, 1), transform 1.5s cubic-bezier(0.23, 1, 0.32, 1)';
-                        confessionResponse.style.opacity = '1';
-                        confessionResponse.style.transform = 'translateY(0)';
-                    }, 50);
-                }, 500);
-            });
-
-            // Re-add background sparkles/constant hearts
-            function createSparkle() {
-                const sparkle = document.createElement('div');
-                sparkle.classList.add('sparkle');
-                sparkleContainer.appendChild(sparkle);
-
-                const size = Math.random() * 4 + 2;
-                sparkle.style.width = `${size}px`;
-                sparkle.style.height = `${size}px`;
-                sparkle.style.left = `${Math.random() * 100}vw`;
-                sparkle.style.top = `${Math.random() * 100}vh`;
-                sparkle.style.animationDelay = `-${Math.random() * 10}s`;
-                sparkle.style.animationDuration = `${Math.random() * 5 + 5}s`;
-                sparkle.style.filter = `blur(${Math.random() * 0.5}px)`;
-                sparkle.addEventListener('animationend', () => sparkle.remove());
-            }
-
-            function createFloatingHeart() {
-                const heart = document.createElement('div');
-                heart.classList.add('floating-heart');
-                heart.innerHTML = '&#10084;&#65039;';
-                floatingHeartsContainer.appendChild(heart);
-
-                heart.style.fontSize = `${Math.random() * 1.5 + 1}em`;
-                heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.bottom = `-${Math.random() * 20 + 50}px`; // Start off-screen bottom
-                heart.style.animationDuration = `${Math.random() * 8 + 10}s`;
-                heart.style.animationDelay = `-${Math.random() * 10}s`;
-                heart.style.opacity = `${Math.random() * 0.2 + 0.1}`;
-                heart.style.filter = `blur(${Math.random() * 1}px)`;
-                // No remove() listener as they loop infinitely
-            }
-
-            for (let i = 0; i < 50; i++) { createSparkle(); }
-            for (let i = 0; i < 15; i++) { createFloatingHeart(); }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
