@@ -3,52 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Beautiful Memories</title>
+    <title>Our Journey of Memories</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF6EB4' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E" type="image/svg+xml">
 </head>
 <body>
-    <div class="background-overlay"></div>
-    <div class="background-elements">
-        <img src="https://media.giphy.com/media/v1.GIF/media/YRtLgs5lM1PCHP2B2g/giphy.gif" alt="Hugging Bears" class="bg-gif gif1">
-        <img src="https://i.pinimg.com/564x/0f/f2/87/0ff287c80520a233b8b60a22f30b925b.jpg" alt="Aesthetic Background" class="bg-image img1">
-    </div>
+    <div class="background-wave"></div>
+    <div class="background-stars"></div>
+    <div class="background-particles"></div>
 
-    <div class="page-container">
-        <h2>Our Beautiful Memories</h2>
-        <p>Every moment with you is a cherished memory, and here are just a few that make my heart flutter.</p>
-
-        <div class="card-grid-container">
-            <div class="love-card card-type-1">
-                <h3>Our First Spark</h3>
-                <img src="https://i.pinimg.com/564x/72/7b/9e/727b9ef8d5236f6d525287e02e1c3a64.jpg" alt="First Spark" class="card-image">
-                <p>Remember that day? It felt like the beginning of something truly special, a moment that will forever be etched in my heart.</p>
+    <main id="memory-container" class="container active">
+        <h1 class="fade-in-up">Our Journey of Memories...</h1>
+        <p class="fade-in-up delay-1">Each card holds a special moment we've shared. Flip them over to relive the magic!</p>
+        
+        <div class="grid-container fade-in-up delay-2">
+            <div class="grid-item card" data-id="1">
+                <h3>Our First Meet</h3>
+                <p>The day our paths crossed and everything changed.</p>
             </div>
-
-            <div class="love-card card-type-2">
-                <h3>Laughter & Joy</h3>
-                <img src="https://i.pinimg.com/564x/01/5e/5c/015e5c2d3c907159c476778f5667e411.jpg" alt="Laughter" class="card-image">
-                <p>Your laughter is my favorite sound. Every shared joke, every silly moment, they all add up to the beautiful symphony of us.</p>
+            <div class="grid-item card" data-id="2">
+                <h3>That Special Date</h3>
+                <p>Remember that unforgettable evening we spent together?</p>
             </div>
-
-            <div class="love-card card-type-3">
-                <h3>Quiet Comfort</h3>
-                <img src="https://i.pinimg.com/564x/8e/3c/6e/8e3c6ef130f1d46b7a2e5843a0d5c0d6.jpg" alt="Comfort" class="card-image">
-                <p>Just being in your presence, even in silence, brings me an unmatched sense of peace and comfort. It's truly magical.</p>
+            <div class="grid-item card" data-id="3">
+                <h3>Our Inside Jokes</h3>
+                <p>The silly moments and laughs that only we understand.</p>
             </div>
-
-            <div class="love-card card-type-4">
-                <h3>Future Dreams</h3>
-                <img src="https://i.pinimg.com/564x/61/54/6a/61546ac52277864f770404097f48e4b8.jpg" alt="Future" class="card-image">
-                <p>Thinking about our future together fills me with such excitement. There's so much more to explore, to create, and to cherish.</p>
+            <div class="grid-item card" data-id="4">
+                <h3>The Day I Knew</h3>
+                <p>That precise moment I realized how much you mean to me.</p>
             </div>
         </div>
 
-        <div class="nav-links">
-            <a href="page3.html" class="animated-button next-page-link">My Confession Awaits &#10140;</a>
-        </div>
-    </div>
+        <button id="confessionBtn" class="btn yes-btn fade-in-up delay-3" onclick="location.href='page3.html'">My Confession Awaits</button>
+    </main>
 
     <script src="script.js"></script>
 </body>
