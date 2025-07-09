@@ -25,19 +25,21 @@ body {
     margin: 0;
     font-family: 'Cormorant Garamond', serif;
     display: flex;
+    flex-direction: column; /* Allows content to stack vertically */
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; /* Ensures body takes at least full viewport height */
     background: linear-gradient(135deg, var(--dark-bg-rich) 0%, var(--dark-bg-deep) 100%); /* Richer dark gradient */
     color: var(--light-text);
-    overflow: hidden;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto;   /* Allow vertical scrolling */
     position: relative;
     perspective: 1000px; /* For 3D effects */
 }
 
 /* Background Animations and Elements */
 .background-overlay {
-    position: absolute;
+    position: fixed; /* Fixed to viewport for consistent background */
     top: 0;
     left: 0;
     width: 100%;
@@ -54,7 +56,7 @@ body {
 }
 
 .background-elements {
-    position: absolute;
+    position: fixed; /* Fixed to viewport for consistent background */
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -95,7 +97,7 @@ body {
 
 /* Sparkle Effects */
 .sparkle {
-    position: absolute;
+    position: fixed; /* Fixed to viewport */
     background-color: var(--secondary-color-accent);
     border-radius: 50%;
     animation: twinkle 1s infinite alternate, sparkleMove 10s linear infinite;
@@ -119,7 +121,7 @@ body {
 
 /* Floating Hearts */
 .floating-heart {
-    position: absolute;
+    position: fixed; /* Fixed to viewport */
     color: var(--heading-color); /* Pink hearts */
     font-size: 2em;
     pointer-events: none;
@@ -152,6 +154,7 @@ body {
     position: relative;
     z-index: 10;
     animation: fadeIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* Smoother fade-in */
+    margin: 50px auto; /* Add margin for scrollability */
 }
 
 .hidden {
@@ -391,7 +394,7 @@ p {
 .page-container {
     padding: 40px;
     max-width: 950px; /* Wider for cards */
-    margin: 40px auto;
+    margin: 40px auto; /* Add margin for scrollability */
     background-color: var(--container-bg);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.7), 0 0 25px var(--secondary-color-accent); /* Stronger shadow with accent glow */
     border-radius: 25px; /* More rounded */
@@ -585,7 +588,7 @@ p {
     h1 { font-size: 3.5em; }
     h2 { font-size: 2.8em; }
     p { font-size: 1.1em; }
-    .container, .page-container { padding: 30px; margin: 20px; border-radius: 20px; }
+    .container, .page-container { padding: 30px; margin: 20px auto; border-radius: 20px; } /* Adjust margin for mobile */
     .animated-button { font-size: 1.4em; padding: 15px 30px; }
     .action-button { width: 80px; height: 80px; font-size: 2.5em; }
     .button-label { font-size: 1.4em; }
@@ -600,18 +603,13 @@ p {
         gap: 25px;
     }
     .love-card { min-height: 300px; }
-    /* Ensure no button still attempts to move on smaller screens, but within constrained bounds */
-    #noBtn, #confessionNoBtn {
-        position: relative; /* Change to relative for mobile for better flow with flex, still allows transform */
-        transform: none !important; /* Override initial transform to allow JS to control */
-    }
     .no-prompt { bottom: -25px; font-size: 0.9em; }
 }
 
 @media (max-width: 480px) {
     h1 { font-size: 2.8em; }
     h2 { font-size: 2.2em; }
-    .container, .page-container { padding: 25px; margin: 15px; border-radius: 15px; }
+    .container, .page-container { padding: 25px; margin: 15px auto; border-radius: 15px; } /* Adjust margin for very small mobile */
     .animated-button { font-size: 1.2em; padding: 12px 25px; }
     .action-button { width: 70px; height: 70px; font-size: 2em; }
     .button-label { font-size: 1.2em; }
