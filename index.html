@@ -3,50 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Message for Reechita</title>
+    <title>A Special Question for You</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Pinyon+Script&family=Sacramento&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF6EB4' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E" type="image/svg+xml">
 </head>
 <body>
     <div class="background-overlay"></div>
     <div class="background-elements">
-        <img src="https://media.tenor.com/P_V_3Vd_d2gAAAAi/milk-and-mocha-hug.gif" alt="Cute bear hug GIF" class="bg-gif gif1">
-        <img src="https://i.pinimg.com/736x/0e/e4/c8/0ee4c84062d2ee39a30ce7c52d2dca65.jpg" alt="Aesthetic background image" class="bg-image img1">
-        <div class="sparkle-container"></div>
-        <div class="floating-hearts-container"></div>
+        <img src="https://media.giphy.com/media/v1.GIF/media/YRtLgs5lM1PCHP2B2g/giphy.gif" alt="Hugging Bears" class="bg-gif gif1">
+        <img src="https://i.pinimg.com/564x/0f/f2/87/0ff287c80520a233b8b60a22f30b925b.jpg" alt="Aesthetic Background" class="bg-image img1">
     </div>
 
-    <div id="intro-container" class="container">
-        <h1 id="greetingText">Hello Reechita!</h1>
-        <p id="timeGreeting"></p>
-        <p id="introElaborateText">I've been thinking about something a lot lately, and there's a question blossoming in my heart that I truly want to ask you. This little space is crafted with all my heart, just for you, to convey feelings that sometimes words alone can't capture. It's an experience, a small journey into my thoughts, leading up to that very question. I think you may already know what it is, but yeah, let's do it!</p>
-        <button id="startJourneyBtn" class="animated-button">Begin Our Little Story</button>
-    </div>
-
-    <div id="main-content" class="container hidden">
-        <h1 id="question">Will you be my Valentine?</h1>
+    <div class="container" id="main-container">
+        <h1>Good Evening, My Love!</h1>
+        <p>I have a special question that has been on my heart.</p>
+        <p class="response-text">Will you be my Valentine?</p>
+        
         <div class="buttons-container">
             <div class="button-wrapper">
-                <button id="yesBtn" class="animated-button action-button">
+                <button class="action-button" id="yesBtn">
                     <span class="icon">&#10084;&#65039;</span>
                 </button>
-                <div class="button-label">Yes</div>
+                <span class="button-label">Yes!</span>
             </div>
+            
             <div class="button-wrapper">
-                <button id="noBtn" class="animated-button action-button no-button">
-                    <span class="icon">&#10060;</span>
+                <button class="action-button" id="noBtn">
+                    <span class="icon">&#128546;</span>
                 </button>
-                <div class="button-label">No</div>
+                <span class="button-label">No</span>
+                <span class="no-prompt" id="noPrompt">Are you sure? &#128557;</span>
             </div>
         </div>
-    </div>
-
-    <div id="response-content" class="container hidden">
-        <h2 id="response1" class="response-text">Yay! I knew you'd say yes!</h2>
-        <p id="response2" class="response-text">You just made my day the happiest!</p>
-        <p id="response3" class="response-text">Can't wait to make this the best Valentine's Day ever!</p>
-        <a href="page2.html" class="next-page-link animated-button">Continue Our Journey! ❤️</a>
-        <img src="https://media.tenor.com/c4h5q04z_QIAAAAC/happy-dance-milk-and-mocha.gif" alt="Happy Dance GIF" class="content-gif hidden" id="happyGif">
     </div>
 
     <script src="script.js"></script>
